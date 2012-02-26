@@ -1,0 +1,3 @@
+[submodule "Classes/Dropbox"]
+	path = Classes/Dropbox
+	url = git://github.com/Dropbox-PHP/dropbox-php.git
