@@ -1,0 +1,11 @@
+# Module configuration
+module.tx_dldropboxsync {
+	persistence {
+		storagePid = {$module.tx_dldropboxsync.persistence.storagePid}
+	}
+	view {
+		templateRootPath = {$module.tx_dldropboxsync.view.templateRootPath}
+		partialRootPath = {$module.tx_dldropboxsync.view.partialRootPath}
+		layoutRootPath = {$module.tx_dldropboxsync.view.layoutRootPath}
+	}
+}
