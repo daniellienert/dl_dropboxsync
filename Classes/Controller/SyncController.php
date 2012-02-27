@@ -32,7 +32,18 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
+
+	/**
+	 * @var Tx_PtExtbase_State_Session_Storage_SessionAdapter
+	 */
+	protected $sessionStorageAdapter;
+
+
+	public function initializeAction() {
+		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
+	}
+
 
 	/**
 	 * action show
@@ -40,8 +51,19 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @param $sync
 	 * @return void
 	 */
-	public function showAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
-		$this->view->assign('sync', $sync);
+	public function showAction() {
+
+		/** It seems dropbox ignores the callBackUrl parameters, so the  default controller / action is called */
+		if($this->sessionStorageAdapter->read('dropBoxConnectInProgress')) {
+			$this->sessionStorageAdapter->delete('dropBoxConnectInProgress');
+			$this->forward('connectResponse', 'OAuth');
+		}
+
+		$dropbox = $this->objectManager->get('Tx_DlDropbox_Domain_Dropbox');
+		$info = $dropbox->getMetaData();
+
+		$this->view->assign('info', $info['contents']);
+
 	}
 
 }

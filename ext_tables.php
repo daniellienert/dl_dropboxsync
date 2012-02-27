@@ -17,6 +17,7 @@ if (TYPO3_MODE === 'BE') {
 		'',						// Position
 		array(
 			'Sync' => 'show',
+			'OAuth' => 'connectRequest, connectResponse',
 		),
 		array(
 			'access' => 'user,group',

@@ -12,10 +12,17 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="content">
-<h1>Single View for Sync</h1>
+	<h1></h1>
 
 <f:flashMessages />
-<f:render partial="Sync/Properties" arguments="{sync:sync}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="create">New Sync</f:link.action>
+
+<a onclick="vHWin=window.open('{f:uri.action(action:'connectRequest', controller:'OAuth')}','dboauthpopup','height=600,width=800,status=0,menubar=0,scrollbars=1');vHWin.focus();return false;" href="#">
+	Connect to Dropbox
+</a>
+
+
+<f:for each="{info}" as="folder">
+	{folder.path}x<br />
+</f:for>
+
 </f:section>
