@@ -3,16 +3,18 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for the Dropbox Sync extension in the FRONTEND</description>
+        <labelContext type="array">
+        </labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_dldropboxsync_domain_model_sync">Manage sync configuration</label>
-			<label index="tx_dldropboxsync_domain_model_sync.identifier">identifier</label>
-			<label index="tx_dldropboxsync_domain_model_sync.description">description</label>
-			<label index="tx_dldropboxsync_domain_model_sync.local_path">localPath</label>
-			<label index="tx_dldropboxsync_domain_model_sync.remote_path">remotePath</label>
-			<label index="tx_dldropboxsync_domain_model_sync.type">type</label>
-			<label index="tx_dldropboxsync_domain_model_sync.last_sync">lastSync</label>
+			<label index="tx_dldropbox_domain_model_sync">Manage sync configuration</label>
+			<label index="tx_dldropbox_domain_model_sync.identifier">Identifier</label>
+			<label index="tx_dldropbox_domain_model_sync.description">description</label>
+			<label index="tx_dldropbox_domain_model_sync.local_path">localPath</label>
+			<label index="tx_dldropbox_domain_model_sync.remote_path">remotePath</label>
+			<label index="tx_dldropbox_domain_model_sync.type">type</label>
+			<label index="tx_dldropbox_domain_model_sync.last_sync">lastSync</label>
 		</languageKey>
 	</data>
 </T3locallang>

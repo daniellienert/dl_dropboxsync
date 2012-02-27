@@ -28,37 +28,63 @@
 /**
  *
  *
- * @package dl_dropboxsync
+ * @package dl_dropbox
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
 	 * syncRepository
 	 *
-	 * @var Tx_DlDropboxsync_Domain_Repository_SyncRepository
+	 * @var Tx_DlDropbox_Domain_Repository_SyncRepository
 	 */
 	protected $syncRepository;
 
 	/**
+	 * @var Tx_PtExtbase_State_Session_Storage_SessionAdapter
+	 */
+	protected $sessionStorageAdapter;
+
+
+	/**
 	 * injectSyncRepository
 	 *
-	 * @param Tx_DlDropboxsync_Domain_Repository_SyncRepository $syncRepository
+	 * @param Tx_DlDropbox_Domain_Repository_SyncRepository $syncRepository
 	 * @return void
 	 */
-	public function injectSyncRepository(Tx_DlDropboxsync_Domain_Repository_SyncRepository $syncRepository) {
+	public function injectSyncRepository(Tx_DlDropbox_Domain_Repository_SyncRepository $syncRepository) {
 		$this->syncRepository = $syncRepository;
 	}
+
+
+	public function initializeAction() {
+		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
+	}
+
+
 
 	/**
 	 * action show
 	 *
-	 * @param $sync
 	 * @return void
 	 */
-	public function showAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
-		$this->view->assign('sync', $sync);
+	public function showAction() {
+		/** It seems dropbox ignores the callBackUrl parameters, so the  default controller / action is called */
+		if($this->sessionStorageAdapter->read('dropBoxConnectInProgress')) {
+			$this->sessionStorageAdapter->delete('dropBoxConnectInProgress');
+			$this->forward('connectResponse', 'OAuth');
+		}
+
+		/*
+		$dropbox = $this->objectManager->get('Tx_DlDropbox_Domain_Dropbox');
+		$info = $dropbox->getMetaData();
+
+		$this->view->assign('info', $info['contents']);
+		*/
+
+		$syncs = $this->syncRepository->findAll();
+		$this->view->assign('syncs', $syncs);
 	}
 
 	/**
@@ -68,7 +94,7 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @dontvalidate $newSync
 	 * @return void
 	 */
-	public function newAction(Tx_DlDropboxsync_Domain_Model_Sync $newSync = NULL) {
+	public function newAction(Tx_DlDropbox_Domain_Model_Sync $newSync = NULL) {
 		$this->view->assign('newSync', $newSync);
 	}
 
@@ -78,10 +104,10 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @param $newSync
 	 * @return void
 	 */
-	public function createAction(Tx_DlDropboxsync_Domain_Model_Sync $newSync) {
+	public function createAction(Tx_DlDropbox_Domain_Model_Sync $newSync) {
 		$this->syncRepository->add($newSync);
 		$this->flashMessageContainer->add('Your new Sync was created.');
-		$this->redirect('list');
+		$this->redirect('show');
 	}
 
 	/**
@@ -90,7 +116,7 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @param $sync
 	 * @return void
 	 */
-	public function editAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+	public function editAction(Tx_DlDropbox_Domain_Model_Sync $sync) {
 		$this->view->assign('sync', $sync);
 	}
 
@@ -100,10 +126,10 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @param $sync
 	 * @return void
 	 */
-	public function updateAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+	public function updateAction(Tx_DlDropbox_Domain_Model_Sync $sync) {
 		$this->syncRepository->update($sync);
 		$this->flashMessageContainer->add('Your Sync was updated.');
-		$this->redirect('list');
+		$this->redirect('show');
 	}
 
 	/**
@@ -112,20 +138,14 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @param $sync
 	 * @return void
 	 */
-	public function deleteAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+	public function deleteAction(Tx_DlDropbox_Domain_Model_Sync $sync) {
 		$this->syncRepository->remove($sync);
 		$this->flashMessageContainer->add('Your Sync was removed.');
-		$this->redirect('list');
+		$this->redirect('show');
 	}
 
-	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$syncs = $this->syncRepository->findAll();
-		$this->view->assign('syncs', $syncs);
+	public function syncAction() {
+
 	}
 
 }

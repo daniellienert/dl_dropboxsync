@@ -31,11 +31,11 @@ if (TYPO3_MODE === 'BE') {
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Dropbox Sync');
 
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_dldropboxsync_domain_model_sync', 'EXT:dl_dropboxsync/Resources/Private/Language/locallang_csh_tx_dldropboxsync_domain_model_sync.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_dldropboxsync_domain_model_sync');
-$TCA['tx_dldropboxsync_domain_model_sync'] = array(
+t3lib_extMgm::addLLrefForTCAdescr('tx_dldropbox_domain_model_sync', 'EXT:dl_dropboxsync/Resources/Private/Language/locallang_csh_tx_dldropbox_domain_model_sync.xml');
+t3lib_extMgm::allowTableOnStandardPages('tx_dldropbox_domain_model_sync');
+$TCA['tx_dldropbox_domain_model_sync'] = array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_sync',
+		'title'	=> 'LLL:EXT:dl_dropbox/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync',
 		'label' => 'identifier',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -54,7 +54,7 @@ $TCA['tx_dldropboxsync_domain_model_sync'] = array(
 			'endtime' => 'endtime',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Sync.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dldropboxsync_domain_model_sync.gif'
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dldropbox_domain_model_sync.gif'
 	),
 );
 

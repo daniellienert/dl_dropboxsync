@@ -7,6 +7,5 @@ return array(
     'dropbox_oauth' => $dldbPath . 'Classes/Dropbox/src/Dropbox/OAuth.php',
     'dropbox_exception' => $dldbPath . 'Classes/Dropbox/src/Dropbox/Exception.php',
     'dropbox_api' => $dldbPath . 'Classes/Dropbox/src/Dropbox/API.php',
-
 );
 ?>

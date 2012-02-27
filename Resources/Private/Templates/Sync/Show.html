@@ -16,13 +16,39 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:flashMessages />
 
-<a onclick="vHWin=window.open('{f:uri.action(action:'connectRequest', controller:'OAuth')}','dboauthpopup','height=600,width=800,status=0,menubar=0,scrollbars=1');vHWin.focus();return false;" href="#">
-	Connect to Dropbox
-</a>
+<div>
+	<a onclick="vHWin=window.open('{f:uri.action(action:'connectRequest', controller:'OAuth')}','dboauthpopup','height=600,width=800,status=0,menubar=0,scrollbars=1');vHWin.focus();return false;" href="#">
+		Connect to Dropbox
+	</a>
+</div>
 
 
-<f:for each="{info}" as="folder">
-	{folder.path}x<br />
-</f:for>
+	<table  class="tx_dldropbox" >
+		<tr>
+			<th><f:translate key="tx_dldropbox_domain_model_sync.identifier" /></th>
+			<th><f:translate key="tx_dldropbox_domain_model_sync.description" /></th>
+			<th><f:translate key="tx_dldropbox_domain_model_sync.local_path" /></th>
+			<th><f:translate key="tx_dldropbox_domain_model_sync.remote_path" /></th>
+			<th><f:translate key="tx_dldropbox_domain_model_sync.type" /></th>
+			<th><f:translate key="tx_dldropbox_domain_model_sync.last_sync" /></th>
+			<th> </th>
+			<th> </th>
+		</tr>
 
+		<f:for each="{syncs}" as="sync">
+			<tr>
+				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.identifier}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.description}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.localPath}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.remotePath}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.type}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.lastSync -> f:format.date()}</f:link.action></td>
+				<td><f:link.action action="edit" arguments="{sync : sync}">Edit</f:link.action></td>
+				<td><f:link.action action="delete" arguments="{sync : sync}">Delete</f:link.action></td>
+			</tr>
+		</f:for>
+	</table>
+
+	<f:link.action action="new">New Sync settings</f:link.action>
 </f:section>
+

@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropboxsync_Domain_Repository_SyncRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_DlDropbox_Domain_Repository_SyncRepository extends Tx_Extbase_Persistence_Repository {
 
 }
 ?>
