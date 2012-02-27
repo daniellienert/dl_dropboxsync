@@ -3,13 +3,13 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_dldropbox_domain_model_sync'] = array(
-	'ctrl' => $TCA['tx_dldropbox_domain_model_sync']['ctrl'],
+$TCA['tx_dldropbox_domain_model_syncconfiguration'] = array(
+	'ctrl' => $TCA['tx_dldropbox_domain_model_syncconfiguration']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, description, local_path, remote_path, type, last_sync',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, description, local_path, remote_path, type, last_syncconfiguration',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, identifier, description, local_path, remote_path, type, last_sync,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, identifier, description, local_path, remote_path, type, last_syncconfiguration,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -37,8 +37,8 @@ $TCA['tx_dldropbox_domain_model_sync'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_dldropbox_domain_model_sync',
-				'foreign_table_where' => 'AND tx_dldropbox_domain_model_sync.pid=###CURRENT_PID### AND tx_dldropbox_domain_model_sync.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_dldropbox_domain_model_syncconfiguration',
+				'foreign_table_where' => 'AND tx_dldropbox_domain_model_syncconfiguration.pid=###CURRENT_PID### AND tx_dldropbox_domain_model_syncconfiguration.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -95,7 +95,7 @@ $TCA['tx_dldropbox_domain_model_sync'] = array(
 		),
 		'identifier' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync.identifier',
+			'label' => 'LLL:EXT:dl_dropboxsyncconfiguration/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_syncconfiguration.identifier',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -104,7 +104,7 @@ $TCA['tx_dldropbox_domain_model_sync'] = array(
 		),
 		'description' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync.description',
+			'label' => 'LLL:EXT:dl_dropboxsyncconfiguration/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_syncconfiguration.description',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -113,7 +113,7 @@ $TCA['tx_dldropbox_domain_model_sync'] = array(
 		),
 		'local_path' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync.local_path',
+			'label' => 'LLL:EXT:dl_dropboxsyncconfiguration/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_syncconfiguration.local_path',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -122,7 +122,7 @@ $TCA['tx_dldropbox_domain_model_sync'] = array(
 		),
 		'remote_path' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync.remote_path',
+			'label' => 'LLL:EXT:dl_dropboxsyncconfiguration/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_syncconfiguration.remote_path',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -131,16 +131,16 @@ $TCA['tx_dldropbox_domain_model_sync'] = array(
 		),
 		'type' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync.type',
+			'label' => 'LLL:EXT:dl_dropboxsyncconfiguration/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_syncconfiguration.type',
 			'config' => array(
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'int'
 			),
 		),
-		'last_sync' => array(
+		'last_syncconfiguration' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_sync.last_sync',
+			'label' => 'LLL:EXT:dl_dropboxsyncconfiguration/Resources/Private/Language/locallang_db.xml:tx_dldropbox_domain_model_syncconfiguration.last_syncconfiguration',
 			'config' => array(
 				'type' => 'input',
 				'size' => 12,

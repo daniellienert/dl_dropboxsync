@@ -1,7 +1,7 @@
 #
 # Table structure for table 'tx_dldropboxsync_domain_model_sync'
 #
-CREATE TABLE tx_dldropbox_domain_model_sync (
+CREATE TABLE tx_dldropbox_domain_model_syncconfiguration (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
