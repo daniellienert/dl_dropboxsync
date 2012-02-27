@@ -1,0 +1,47 @@
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<h1>Listing for Sync</h1>
+
+<f:flashMessages />
+
+<table  class="tx_dldropboxsync" >
+	<tr>
+		<th><f:translate key="tx_dldropboxsync_domain_model_sync.identifier" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_sync.description" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_sync.local_path" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_sync.remote_path" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_sync.type" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_sync.last_sync" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{syncs}" as="sync">
+		<tr>
+			<td><f:link.action action="show" arguments="{sync : sync}"> {sync.identifier}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{sync : sync}"> {sync.description}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{sync : sync}"> {sync.localPath}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{sync : sync}"> {sync.remotePath}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{sync : sync}"> {sync.type}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{sync : sync}"> {sync.lastSync -> f:format.date()}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{sync : sync}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{sync : sync}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New Sync</f:link.action>
+</f:section>

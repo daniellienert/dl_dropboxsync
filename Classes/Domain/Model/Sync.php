@@ -35,12 +35,168 @@
 class Tx_DlDropboxsync_Domain_Model_Sync extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
+	 * identifier
+	 *
+	 * @var string
+	 */
+	protected $identifier;
+
+	/**
+	 * description
+	 *
+	 * @var string
+	 */
+	protected $description;
+
+	/**
+	 * localPath
+	 *
+	 * @var string
+	 */
+	protected $localPath;
+
+	/**
+	 * remotePath
+	 *
+	 * @var string
+	 */
+	protected $remotePath;
+
+	/**
+	 * type
+	 *
+	 * @var integer
+	 */
+	protected $type;
+
+	/**
+	 * lastSync
+	 *
+	 * @var DateTime
+	 */
+	protected $lastSync;
+
+	/**
 	 * __construct
 	 *
 	 * @return void
 	 */
 	public function __construct() {
 
+	}
+
+	/**
+	 * Returns the identifier
+	 *
+	 * @return string $identifier
+	 */
+	public function getIdentifier() {
+		return $this->identifier;
+	}
+
+	/**
+	 * Sets the identifier
+	 *
+	 * @param string $identifier
+	 * @return void
+	 */
+	public function setIdentifier($identifier) {
+		$this->identifier = $identifier;
+	}
+
+	/**
+	 * Returns the description
+	 *
+	 * @return string $description
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * Sets the description
+	 *
+	 * @param string $description
+	 * @return void
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
+	}
+
+	/**
+	 * Returns the localPath
+	 *
+	 * @return string $localPath
+	 */
+	public function getLocalPath() {
+		return $this->localPath;
+	}
+
+	/**
+	 * Sets the localPath
+	 *
+	 * @param string $localPath
+	 * @return void
+	 */
+	public function setLocalPath($localPath) {
+		$this->localPath = $localPath;
+	}
+
+	/**
+	 * Returns the remotePath
+	 *
+	 * @return string $remotePath
+	 */
+	public function getRemotePath() {
+		return $this->remotePath;
+	}
+
+	/**
+	 * Sets the remotePath
+	 *
+	 * @param string $remotePath
+	 * @return void
+	 */
+	public function setRemotePath($remotePath) {
+		$this->remotePath = $remotePath;
+	}
+
+	/**
+	 * Returns the type
+	 *
+	 * @return integer $type
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
+	 * Sets the type
+	 *
+	 * @param integer $type
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	/**
+	 * Returns the lastSync
+	 *
+	 * @return DateTime $lastSync
+	 */
+	public function getLastSync() {
+		return $this->lastSync;
+	}
+
+	/**
+	 * Sets the lastSync
+	 *
+	 * @param DateTime $lastSync
+	 * @return void
+	 */
+	public function setLastSync($lastSync) {
+		$this->lastSync = $lastSync;
 	}
 
 }

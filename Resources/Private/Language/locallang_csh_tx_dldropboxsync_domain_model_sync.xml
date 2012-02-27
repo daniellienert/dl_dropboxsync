@@ -7,6 +7,12 @@
 	</meta>
 	<data type="array">
 	<languageKey index="default" type="array">
+			<label index="identifier.description">identifier</label>
+			<label index="description.description">description</label>
+			<label index="local_path.description">localPath</label>
+			<label index="remote_path.description">remotePath</label>
+			<label index="type.description">type</label>
+			<label index="last_sync.description">lastSync</label>
 		</languageKey>
 	</data>
 </T3locallang>

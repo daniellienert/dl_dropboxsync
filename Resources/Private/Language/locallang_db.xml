@@ -7,6 +7,12 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tx_dldropboxsync_domain_model_sync">Sync</label>
+			<label index="tx_dldropboxsync_domain_model_sync.identifier">Identifier</label>
+			<label index="tx_dldropboxsync_domain_model_sync.description">Description</label>
+			<label index="tx_dldropboxsync_domain_model_sync.local_path">Local Path</label>
+			<label index="tx_dldropboxsync_domain_model_sync.remote_path">Remote Path</label>
+			<label index="tx_dldropboxsync_domain_model_sync.type">Type</label>
+			<label index="tx_dldropboxsync_domain_model_sync.last_sync">Last Sync</label>
 		</languageKey>
 	</data>
 </T3locallang>

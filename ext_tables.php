@@ -16,8 +16,7 @@ if (TYPO3_MODE === 'BE') {
 		'dbs',	// Submodule key
 		'',						// Position
 		array(
-			'Sync' => 'show',
-			'OAuth' => 'connectRequest, connectResponse',
+			'Sync' => 'show, new, create, edit, update, delete, list',
 		),
 		array(
 			'access' => 'user,group',
@@ -37,7 +36,7 @@ t3lib_extMgm::allowTableOnStandardPages('tx_dldropboxsync_domain_model_sync');
 $TCA['tx_dldropboxsync_domain_model_sync'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_sync',
-		'label' => 'uid',
+		'label' => 'identifier',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',

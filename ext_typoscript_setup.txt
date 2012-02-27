@@ -1,0 +1,14 @@
+plugin.tx_dldropboxsync {
+	persistence {
+		classes {
+			Tx_DlDropboxsync_Domain_Model_Sync {
+				mapping {
+					columns {
+						tx_dldropboxsync_key.mapOnProperty = key
+					
+					}
+				}
+			}
+		}
+	}
+}

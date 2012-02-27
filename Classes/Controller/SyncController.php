@@ -32,18 +32,24 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
-	 * @var Tx_PtExtbase_State_Session_Storage_SessionAdapter
+	 * syncRepository
+	 *
+	 * @var Tx_DlDropboxsync_Domain_Repository_SyncRepository
 	 */
-	protected $sessionStorageAdapter;
+	protected $syncRepository;
 
-
-	public function initializeAction() {
-		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
+	/**
+	 * injectSyncRepository
+	 *
+	 * @param Tx_DlDropboxsync_Domain_Repository_SyncRepository $syncRepository
+	 * @return void
+	 */
+	public function injectSyncRepository(Tx_DlDropboxsync_Domain_Repository_SyncRepository $syncRepository) {
+		$this->syncRepository = $syncRepository;
 	}
-
 
 	/**
 	 * action show
@@ -51,19 +57,75 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @param $sync
 	 * @return void
 	 */
-	public function showAction() {
+	public function showAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+		$this->view->assign('sync', $sync);
+	}
 
-		/** It seems dropbox ignores the callBackUrl parameters, so the  default controller / action is called */
-		if($this->sessionStorageAdapter->read('dropBoxConnectInProgress')) {
-			$this->sessionStorageAdapter->delete('dropBoxConnectInProgress');
-			$this->forward('connectResponse', 'OAuth');
-		}
+	/**
+	 * action new
+	 *
+	 * @param $newSync
+	 * @dontvalidate $newSync
+	 * @return void
+	 */
+	public function newAction(Tx_DlDropboxsync_Domain_Model_Sync $newSync = NULL) {
+		$this->view->assign('newSync', $newSync);
+	}
 
-		$dropbox = $this->objectManager->get('Tx_DlDropbox_Domain_Dropbox');
-		$info = $dropbox->getMetaData();
+	/**
+	 * action create
+	 *
+	 * @param $newSync
+	 * @return void
+	 */
+	public function createAction(Tx_DlDropboxsync_Domain_Model_Sync $newSync) {
+		$this->syncRepository->add($newSync);
+		$this->flashMessageContainer->add('Your new Sync was created.');
+		$this->redirect('list');
+	}
 
-		$this->view->assign('info', $info['contents']);
+	/**
+	 * action edit
+	 *
+	 * @param $sync
+	 * @return void
+	 */
+	public function editAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+		$this->view->assign('sync', $sync);
+	}
 
+	/**
+	 * action update
+	 *
+	 * @param $sync
+	 * @return void
+	 */
+	public function updateAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+		$this->syncRepository->update($sync);
+		$this->flashMessageContainer->add('Your Sync was updated.');
+		$this->redirect('list');
+	}
+
+	/**
+	 * action delete
+	 *
+	 * @param $sync
+	 * @return void
+	 */
+	public function deleteAction(Tx_DlDropboxsync_Domain_Model_Sync $sync) {
+		$this->syncRepository->remove($sync);
+		$this->flashMessageContainer->add('Your Sync was removed.');
+		$this->redirect('list');
+	}
+
+	/**
+	 * action list
+	 *
+	 * @return void
+	 */
+	public function listAction() {
+		$syncs = $this->syncRepository->findAll();
+		$this->view->assign('syncs', $syncs);
 	}
 
 }
