@@ -21,16 +21,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		Connect to Dropbox
 	</a>
 </div>
+<div>
+	<f:link.action action="disconnectDropbox" controller="OAuth">Disconnect Dropbox</f:link.action>
+</div>
 
-
-	<table  class="tx_dldropbox" >
-		<tr>
-			<th><f:translate key="tx_dldropbox_domain_model_sync.identifier" /></th>
-			<th><f:translate key="tx_dldropbox_domain_model_sync.description" /></th>
-			<th><f:translate key="tx_dldropbox_domain_model_sync.local_path" /></th>
-			<th><f:translate key="tx_dldropbox_domain_model_sync.remote_path" /></th>
-			<th><f:translate key="tx_dldropbox_domain_model_sync.type" /></th>
-			<th><f:translate key="tx_dldropbox_domain_model_sync.last_sync" /></th>
+	<table  class="tx_dldropbox typo3-dblist">
+		<tr class="t3-row-header">
+			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.identifier" /></th>
+			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.description" /></th>
+			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.local_path" /></th>
+			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.remote_path" /></th>
+			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type" /></th>
+			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.last_sync" /></th>
 			<th> </th>
 			<th> </th>
 		</tr>

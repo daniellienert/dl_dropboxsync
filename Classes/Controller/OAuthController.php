@@ -100,9 +100,18 @@ class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Control
 
 		if(is_array($oAuthTokens)) {
 			$this->registry->set('tx_dlDropbox', 'oauth_tokens', $oAuthTokens);
-			$this->view->assign('successfullyAuthenticated');
+			$this->view->assign('successfullyAuthenticated', true);
 		}
+	}
 
+
+	/**
+	 * Disconnect the dropbox by removing the oAuth secret from the registry
+	 */
+	public function disconnectDropboxAction() {
+		$this->registry->remove('tx_dlDropbox','oauth_tokens');
+		$this->flashMessageContainer->add('The dropbox was successfully disconnected.', 'Dropbox disconnected!', t3lib_FlashMessage::OK);
+		$this->forward('show', 'Sync');
 	}
 }
 ?>

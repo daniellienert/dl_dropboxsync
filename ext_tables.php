@@ -14,7 +14,9 @@ if (TYPO3_MODE === 'BE') {
 		'dbs',	// Submodule key
 		'',						// Position
 		array(
-			'SyncConfiguration' => 'list, show, new, create, edit, update, delete','FileMeta' => '',
+			'Sync' => 'show, list, new, create, edit, update, delete',
+			'FileMeta' => '',
+			'OAuth' => 'connectRequest, connectResponse, disconnectDropbox'
 		),
 		array(
 			'access' => 'user,group',
