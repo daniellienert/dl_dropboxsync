@@ -43,6 +43,12 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 
 
 	/**
+	 * @var Tx_DlDropboxsync_Domain_Dropbox_FileTracker
+	 */
+	protected $fileTracker;
+
+
+	/**
 	 * The flash messages. Use $this->flashMessageContainer->add(...) to add a new Flash message.
 	 *
 	 * @var Tx_Extbase_MVC_Controller_FlashMessages
@@ -83,6 +89,15 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 
 
 
+	/**
+	 * @param Tx_DlDropboxsync_Domain_Dropbox_FileTracker $fileTracker
+	 */
+	public function injectFileTracker(Tx_DlDropboxsync_Domain_Dropbox_FileTracker $fileTracker) {
+		$this->fileTracker = $fileTracker;
+	}
+
+
+
 	public function syncAll() {
 
 		$syncConfigs = $this->syncConfigurationRepository->findAll();
@@ -105,22 +120,30 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 
 			foreach($dbDirList['contents'] as $dbDirEntry) {
 				if($dbDirEntry['is_dir'] == FALSE) {
-					$this->downloadDBFileToDirectory($dbDirEntry['path'], $localPath);
+					if($this->fileTracker->isRemoteFileChanged($dbDirEntry['path'], $dbDirEntry['rev'])) {
+						$this->downloadDBFileToDirectory($dbDirEntry, $localPath);
+						error_log('Downloaded ' . $dbDirEntry['path'] . ' to ' . $localPath);
+					} else {
+						error_log('Skiped ' . $dbDirEntry['path'] . ' because we already have the newest file.');
+					}
 				}
 			}
 		}
 	}
 
 
-	protected function downloadDBFileToDirectory($dbPathAndFileName, $localPath) {
+	protected function downloadDBFileToDirectory($dbDirEntry, $localPath) {
+		$dbPathAndFileName = $dbDirEntry['path'];
+
 		t3lib_div::mkdir_deep($this->getFileadminPath(), $localPath);
 		
 		$dbFileName = basename($dbPathAndFileName); 
 		$localPathAndFileName = $this->getFileadminPath() . $localPath . '/' . $dbFileName;
 
 		$fileContent = $this->dropbox->getFile($dbPathAndFileName);
-		
 		file_put_contents($localPathAndFileName, $fileContent);
+
+		$this->fileTracker->updateFileMeta($localPathAndFileName, $dbDirEntry);
 	}
 
 

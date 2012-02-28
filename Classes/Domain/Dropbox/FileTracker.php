@@ -34,83 +34,85 @@
  */
 class Tx_DlDropboxsync_Domain_Dropbox_FileTracker implements t3lib_Singleton {
 
-	/**
-	 * @var Dropbox_OAuth_PHP
-	 */
-	protected $oAuth;
-
 
 	/**
-	 * @var Dropbox_API
+	 * fileMetaRepository
+	 *
+	 * @var Tx_DlDropboxsync_Domain_Repository_FileMetaRepository
 	 */
-	protected $dropbox;
+	protected $fileMetaRepository;
 
 
 	/**
-	 * @var bool is authenticated to dropbox?
+	 * injectFileMetaRepository
+	 *
+	 * @param Tx_DlDropboxsync_Domain_Repository_FileMetaRepository $fileMetaRepository
+	 * @return void
 	 */
-	protected $isAuthenticated = FALSE;
-
-
-	/**
-	 * @var t3lib_Registry
-	 */
-	protected $registry;
-
-
-	public function __construct() {
-		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
-		$this->registry = t3lib_div::makeInstance('t3lib_Registry');
-
-		$this->initOAuth();
-		$this->dropbox = new Dropbox_API($this->oAuth);
+	public function injectFileMetaRepository(Tx_DlDropboxsync_Domain_Repository_FileMetaRepository $fileMetaRepository) {
+		$this->fileMetaRepository = $fileMetaRepository;
 	}
 
 
-	protected  function initOAuth() {
-		$this->oAuth = new Dropbox_OAuth_PHP('xyr5aaaeko7l78v', 'gwdrjhgythr1pfx');
 
-		$oAuthTokens = $this->registry->get('tx_dlDropbox', 'oauth_tokens');
+	/**
+	 * @param $remoteFilePath
+	 * @param $remoteFileRev
+	 * @return bool
+	 */
+	public function isRemoteFileChanged($remoteFilePath, $remoteFileRev) {
+		$result = $this->fileMetaRepository->findOneByRemotePathAndRev($remoteFilePath, $remoteFileRev);
+		if($result instanceof Tx_DlDropboxsync_Domain_Model_FileMeta) {
+			return false;
+		}
+		return true;
+	}
 
-		if(is_array($oAuthTokens) && array_key_exists('token_secret', $oAuthTokens) && $oAuthTokens['token_secret']) {
-			$this->oAuth->setToken($oAuthTokens);
-			$this->isAuthenticated = TRUE;
+
+
+	public function isLocalFileChanged($localFilePath) {
+
+	}
+
+
+	/**
+	 * Add or update the file meta entry of a synchronized file
+	 *
+	 * @param $localFilePath
+	 * @param $remoteFileArray
+	 */
+	public function updateFileMeta($localFilePath, $remoteFileArray) {
+		$fileMeta = $this->fileMetaRepository->findOneByLocalPath($localFilePath);
+
+		if(!$fileMeta) {
+			$fileMeta = new Tx_DlDropboxsync_Domain_Model_FileMeta();
+			$create = TRUE;
+		}
+
+		$fileMeta->setBytes($remoteFileArray['bytes']);
+		$fileMeta->setLastSynched(time());
+		$fileMeta->setMimeType($remoteFileArray['mime_type']);
+		$fileMeta->setModified($remoteFileArray['modified']);
+		$fileMeta->setRev($remoteFileArray['rev']);
+		$fileMeta->setRemotePath($remoteFileArray['path']);
+
+		$fileMeta->setLocalPath($localFilePath);
+		$fileMeta->setLocalHash($this->getHashOfLocalFile($localFilePath));
+
+		if($create) {
+			$this->fileMetaRepository->add($fileMeta);
+		} else {
+			$this->fileMetaRepository->update($fileMeta);
 		}
 	}
 
 
 	/**
-	  * Returns file and directory information
-	  *
-	  * @param string $path Path to receive information from
-	  * @param bool $list When set to true, this method returns information from all files in a directory. When set to false it will only return infromation from the specified directory.
-	  * @param string $hash If a hash is supplied, this method simply returns true if nothing has changed since the last request. Good for caching.
-	  * @param int $fileLimit Maximum number of file-information to receive
-	  * @param string $root Use this to override the default root path (sandbox/dropbox)
-	  * @return array|true
-	  */
-	public function getMetaData($path, $list = true, $hash = null, $fileLimit = null, $root = null) {
-		return $this->dropbox->getMetaData($path, $list, $hash, $fileLimit, $root);
-	}
-
-
-	/**
-	 * Returns a file's contents
-	 *
-	 * @param string $path path
-	 * @param string $root Use this to override the default root path (sandbox/dropbox)
+	 * @param $localFilePath string
 	 * @return string
 	 */
-	public function getFile($path = '', $root = null) {
-		return $this->dropbox->getFile($path, $root);
-	}
-
-
-	/**
-	 * @return Dropbox_OAuth_PHP
-	 */
-	public function getOAuth() {
-		return $this->oAuth;
+	protected function getHashOfLocalFile($localFilePath) {
+		return md5_file($localFilePath);
 	}
 
 }

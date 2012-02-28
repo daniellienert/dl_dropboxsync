@@ -33,5 +33,23 @@
  */
 class Tx_DlDropboxsync_Domain_Repository_FileMetaRepository extends Tx_Extbase_Persistence_Repository {
 
+
+	/**
+	 * @param $remotePath
+	 * @param $remoteRev
+	 * @return Tx_DlDropboxsync_Domain_Model_FileMeta
+	 */
+	public function findOneByRemotePathAndRev($remotePath, $remoteRev) {
+		$query = $this->createQuery();
+		$result = $query->matching(
+			$query->logicalAnd(
+				$query->equals('remote_path', $remotePath),
+				$query->equals('rev', $remoteRev)
+			)
+		)->execute();
+
+		return $result->current();
+	}
+
 }
 ?>
