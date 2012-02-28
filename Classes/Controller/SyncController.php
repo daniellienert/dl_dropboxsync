@@ -150,7 +150,7 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * Syncs all defined folders
 	 */
 	public function syncAllAction() {
-		$dropboxSync = $this->objectManager->get('Tx_DlDropboxsync_Domain_DropboxSync');
+		$dropboxSync = $this->objectManager->get('Tx_DlDropboxsync_Domain_Dropbox_DropboxSync');
 		$dropboxSync->syncAll();
 
 	}

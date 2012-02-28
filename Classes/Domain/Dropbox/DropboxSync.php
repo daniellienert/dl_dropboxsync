@@ -26,7 +26,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_DlDropboxsync_Domain_DropboxSync {
+class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 
 	/**
 	 * syncConfigurationRepository
@@ -37,7 +37,7 @@ class Tx_DlDropboxsync_Domain_DropboxSync {
 
 
 	/**
-	 * @var Tx_DlDropboxsync_Domain_Dropbox
+	 * @var Tx_DlDropboxsync_Domain_Dropbox_Dropbox
 	 */
 	protected $dropbox;
 
@@ -53,9 +53,9 @@ class Tx_DlDropboxsync_Domain_DropboxSync {
 
 
 	/**
-	 * @param Tx_DlDropboxsync_Domain_Dropbox $dropbox
+	 * @param Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox
 	 */
-	public function injectDropbox(Tx_DlDropboxsync_Domain_Dropbox $dropbox) {
+	public function injectDropbox(Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox) {
 		$this->dropbox = $dropbox;
 	}
 
