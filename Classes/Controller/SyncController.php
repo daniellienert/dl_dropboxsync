@@ -35,7 +35,7 @@
 class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
-	 * syncRepository
+	 * syncConfigurationRepository
 	 *
 	 * @var Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository
 	 */
@@ -53,7 +53,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @param Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncRepository
 	 * @return void
 	 */
-	public function injectSyncRepository(Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
+	public function injectSyncConfigurationRepository(Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
 		$this->syncConfigurationRepository = $syncConfigurationRepository;
 	}
 
@@ -139,12 +139,19 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @return void
 	 */
 	public function deleteAction(Tx_DlDropbox_Domain_Model_SyncConfiguration $sync) {
-		$this->syncRepository->remove($sync);
+		$this->syncConfigurationRepository->remove($sync);
 		$this->flashMessageContainer->add('Your Sync was removed.');
 		$this->redirect('show');
 	}
 
-	public function syncAction() {
+
+
+	/**
+	 * Syncs all defined folders
+	 */
+	public function syncAllAction() {
+		$dropboxSync = $this->objectManager->get('Tx_DlDropbox_Domain_DropboxSync');
+		$dropboxSync->syncAll();
 
 	}
 

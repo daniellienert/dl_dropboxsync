@@ -16,7 +16,7 @@ if (TYPO3_MODE === 'BE') {
 		'dbs',	// Submodule key
 		'',						// Position
 		array(
-			'Sync' => 'show, new, create, edit, update, delete, list',
+			'Sync' => 'show, new, create, edit, update, delete, list, syncAll',
 		),
 		array(
 			'access' => 'user,group',

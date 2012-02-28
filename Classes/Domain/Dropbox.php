@@ -95,6 +95,18 @@ class Tx_DlDropbox_Domain_Dropbox implements t3lib_Singleton {
 
 
 	/**
+	 * Returns a file's contents
+	 *
+	 * @param string $path path
+	 * @param string $root Use this to override the default root path (sandbox/dropbox)
+	 * @return string
+	 */
+	public function getFile($path = '', $root = null) {
+		return $this->dropbox->getFile($path, $root);
+	}
+
+
+	/**
 	 * @return Dropbox_OAuth_PHP
 	 */
 	public function getOAuth() {

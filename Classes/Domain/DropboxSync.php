@@ -29,17 +29,27 @@
 class Tx_DlDropbox_Domain_DropboxSync {
 
 	/**
-	 * syncRepository
+	 * syncConfigurationRepository
 	 *
-	 * @var Tx_DlDropbox_Domain_Repository_SyncRepository
+	 * @var Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository
 	 */
-	protected $syncRepository;
+	protected $syncConfigurationRepository;
 
 
 	/**
 	 * @var Tx_DlDropbox_Domain_Dropbox
 	 */
 	protected $dropbox;
+
+
+	/**
+	 * The flash messages. Use $this->flashMessageContainer->add(...) to add a new Flash message.
+	 *
+	 * @var Tx_Extbase_MVC_Controller_FlashMessages
+	 * @api
+	 */
+	protected $flashMessageContainer;
+
 
 
 	/**
@@ -51,22 +61,34 @@ class Tx_DlDropbox_Domain_DropboxSync {
 
 
 	/**
-	 * injectSyncRepository
+	 * Injects the flash messages container
 	 *
-	 * @param Tx_DlDropbox_Domain_Repository_SyncRepository $syncRepository
+	 * @param Tx_Extbase_MVC_Controller_FlashMessages $flashMessageContainer
 	 * @return void
 	 */
-	public function injectSyncRepository(Tx_DlDropbox_Domain_Repository_SyncRepository $syncRepository) {
-		$this->syncRepository = $syncRepository;
+	public function injectFlashMessageContainer(Tx_Extbase_MVC_Controller_FlashMessages $flashMessageContainer) {
+		$this->flashMessageContainer = $flashMessageContainer;
+	}
+
+
+	/**
+	 * injectSyncRepository
+	 *
+	 * @param Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncRepository
+	 * @return void
+	 */
+	public function injectSyncConfigurationRepository(Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
+		$this->syncConfigurationRepository = $syncConfigurationRepository;
 	}
 
 
 
 	public function syncAll() {
-		$syncConfigs = $this->syncRepository->findAll();
 
-		foreach($syncConfigs as $syncConfig) { /** @var $syncConfig  */
+		$syncConfigs = $this->syncConfigurationRepository->findAll();
 
+		foreach($syncConfigs as $syncConfig) { /** @var $syncConfig Tx_DlDropbox_Domain_Model_SyncConfiguration  */
+			$this->syncRemoteToLocal($syncConfig->getRemotePath(), $syncConfig->getLocalPath());
 		}
 	}
 
@@ -78,6 +100,54 @@ class Tx_DlDropbox_Domain_DropboxSync {
 	 */
 	protected function syncRemoteToLocal($remotePath, $localPath, $recursive = FALSE) {
 
+		$dbDirList = $this->getDBDirectoryList($remotePath);
+		if($dbDirList !== FALSE) {
+
+			foreach($dbDirList['contents'] as $dbDirEntry) {
+				if($dbDirEntry['is_dir'] == FALSE) {
+					$this->downloadDBFileToDirectory($dbDirEntry['path'], $localPath);
+				}
+			}
+		}
+	}
+
+
+	protected function downloadDBFileToDirectory($dbPathAndFileName, $localPath) {
+		t3lib_div::mkdir_deep($this->getFileadminPath(), $localPath);
+		
+		$dbFileName = basename($dbPathAndFileName); 
+		$localPathAndFileName = $this->getFileadminPath() . $localPath . '/' . $dbFileName;
+
+		$fileContent = $this->dropbox->getFile($dbPathAndFileName);
+		
+		file_put_contents($localPathAndFileName, $fileContent);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function getFileadminPath() {
+		return PATH_site . 'fileadmin/';
+	}
+
+
+	/**
+	 * @param $remotePath
+	 * @return array|bool|true
+	 */
+	protected function getDBDirectoryList($remotePath) {
+		try {
+			$list = $this->dropbox->getMetaData($remotePath);
+		} catch (Exception $e) {
+			if($e instanceof Dropbox_Exception_NotFound) {
+				$this->flashMessageContainer->add('Folder ' . $remotePath . ' not found in your dropbox.');
+			}
+
+			return FALSE;
+		}
+
+		return $list;
 	}
 
 }
