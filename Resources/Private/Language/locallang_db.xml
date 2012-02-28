@@ -6,13 +6,23 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_dldropbox_domain_model_sync">Sync</label>
-			<label index="tx_dldropbox_domain_model_sync.identifier">Identifier</label>
-			<label index="tx_dldropbox_domain_model_sync.description">Description</label>
-			<label index="tx_dldropbox_domain_model_sync.local_path">Local Path</label>
-			<label index="tx_dldropbox_domain_model_sync.remote_path">Remote Path</label>
-			<label index="tx_dldropbox_domain_model_sync.type">Type</label>
-			<label index="tx_dldropbox_domain_model_sync.last_sync">Last Sync</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration">Sync Configuration</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.identifier">Identifier</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.description">Description</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.local_path">Local Path</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.remote_path">Remote Path</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.type">Type</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.last_sync">Last Sync</label>
+
+			<label index="tx_dldropboxsync_domain_model_filemeta">File Meta</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.mime_type">Mime Type</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.modified">Modified</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.remote_path">Remote Path</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.rev">Rev</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.bytes">Bytes</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.last_synched">Last Synched</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.sync_configuration">Sync Configuration</label>
+
 		</languageKey>
 	</data>
 </T3locallang>

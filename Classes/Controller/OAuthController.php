@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropbox_Controller_OAuthController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
 	 * @var Dropbox_OAuth_PHP

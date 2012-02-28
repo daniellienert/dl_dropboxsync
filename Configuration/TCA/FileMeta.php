@@ -3,13 +3,13 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_dldropboxsync_domain_model_syncconfiguration'] = array(
-	'ctrl' => $TCA['tx_dldropboxsync_domain_model_syncconfiguration']['ctrl'],
+$TCA['tx_dldropboxsync_domain_model_filemeta'] = array(
+	'ctrl' => $TCA['tx_dldropboxsync_domain_model_filemeta']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, description, local_path, remote_path, type, last_sync',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, mime_type, modified, remote_path, rev, bytes, last_synched, sync_configuration',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, identifier, description, local_path, remote_path, type, last_sync,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, mime_type, modified, remote_path, rev, bytes, last_synched, sync_configuration,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -37,8 +37,8 @@ $TCA['tx_dldropboxsync_domain_model_syncconfiguration'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_dldropboxsync_domain_model_syncconfiguration',
-				'foreign_table_where' => 'AND tx_dldropboxsync_domain_model_syncconfiguration.pid=###CURRENT_PID### AND tx_dldropboxsync_domain_model_syncconfiguration.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_dldropboxsync_domain_model_filemeta',
+				'foreign_table_where' => 'AND tx_dldropboxsync_domain_model_filemeta.pid=###CURRENT_PID### AND tx_dldropboxsync_domain_model_filemeta.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -93,60 +93,77 @@ $TCA['tx_dldropboxsync_domain_model_syncconfiguration'] = array(
 				),
 			),
 		),
-		'identifier' => array(
+		'mime_type' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.identifier',
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.mime_type',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
 			),
 		),
-		'description' => array(
+		'modified' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.description',
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.modified',
 			'config' => array(
 				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
-			),
-		),
-		'local_path' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.local_path',
-			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
+				'size' => 6,
+				'eval' => 'timesec',
+				'checkbox' => 1,
+				'default' => time()
 			),
 		),
 		'remote_path' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.remote_path',
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.remote_path',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
 			),
 		),
-		'type' => array(
+		'rev' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.type',
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.rev',
 			'config' => array(
 				'type' => 'input',
-				'size' => 4,
-				'eval' => 'int'
+				'size' => 30,
+				'eval' => 'trim'
 			),
 		),
-		'last_sync' => array(
+		'bytes' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.last_sync',
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.bytes',
 			'config' => array(
 				'type' => 'input',
-				'size' => 10,
-				'eval' => 'datetime',
-				'checkbox' => 1,
-				'default' => time()
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'last_synched' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.last_synched',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'sync_configuration' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.sync_configuration',
+			'config' => array(
+				'type' => 'inline',
+				'foreign_table' => 'tx_dldropboxsync_domain_model_syncconfiguration',
+				'minitems' => 0,
+				'maxitems' => 1,
+				'appearance' => array(
+					'collapse' => 0,
+					'levelLinksPosition' => 'top',
+					'showSynchronizationLink' => 1,
+					'showPossibleLocalizationRecords' => 1,
+					'showAllLocalizationLink' => 1
+				),
 			),
 		),
 	),

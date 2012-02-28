@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropbox_Domain_Dropbox implements t3lib_Singleton {
+class Tx_DlDropboxsync_Domain_Dropbox implements t3lib_Singleton {
 
 	/**
 	 * @var Dropbox_OAuth_PHP

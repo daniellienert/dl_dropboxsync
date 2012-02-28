@@ -3,18 +3,24 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for the Dropbox Sync extension in the FRONTEND</description>
-        <labelContext type="array">
-        </labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_dldropbox_domain_model_sync">Manage sync configuration</label>
-			<label index="tx_dldropbox_domain_model_sync.identifier">Identifier</label>
-			<label index="tx_dldropbox_domain_model_sync.description">description</label>
-			<label index="tx_dldropbox_domain_model_sync.local_path">localPath</label>
-			<label index="tx_dldropbox_domain_model_sync.remote_path">remotePath</label>
-			<label index="tx_dldropbox_domain_model_sync.type">type</label>
-			<label index="tx_dldropbox_domain_model_sync.last_sync">lastSync</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration">Manage sync configuration</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.identifier">Identifier</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.description">description</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.local_path">localPath</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.remote_path">remotePath</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.type">type</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.last_sync">lastSync</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta">FileMeta</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.mime_type">mimeType</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.modified">modified</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.remote_path">remotePath</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.rev">rev</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.bytes">bytes</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.last_synched">lastSynched</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.sync_configuration">syncConfiguration</label>
 		</languageKey>
 	</data>
 </T3locallang>

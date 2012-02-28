@@ -26,18 +26,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_DlDropbox_Domain_DropboxSync {
+class Tx_DlDropboxsync_Domain_DropboxSync {
 
 	/**
 	 * syncConfigurationRepository
 	 *
-	 * @var Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository
+	 * @var Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository
 	 */
 	protected $syncConfigurationRepository;
 
 
 	/**
-	 * @var Tx_DlDropbox_Domain_Dropbox
+	 * @var Tx_DlDropboxsync_Domain_Dropbox
 	 */
 	protected $dropbox;
 
@@ -53,9 +53,9 @@ class Tx_DlDropbox_Domain_DropboxSync {
 
 
 	/**
-	 * @param Tx_DlDropbox_Domain_Dropbox $dropbox
+	 * @param Tx_DlDropboxsync_Domain_Dropbox $dropbox
 	 */
-	public function injectDropbox(Tx_DlDropbox_Domain_Dropbox $dropbox) {
+	public function injectDropbox(Tx_DlDropboxsync_Domain_Dropbox $dropbox) {
 		$this->dropbox = $dropbox;
 	}
 
@@ -74,10 +74,10 @@ class Tx_DlDropbox_Domain_DropboxSync {
 	/**
 	 * injectSyncRepository
 	 *
-	 * @param Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncRepository
+	 * @param Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncRepository
 	 * @return void
 	 */
-	public function injectSyncConfigurationRepository(Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
+	public function injectSyncConfigurationRepository(Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
 		$this->syncConfigurationRepository = $syncConfigurationRepository;
 	}
 
@@ -87,7 +87,7 @@ class Tx_DlDropbox_Domain_DropboxSync {
 
 		$syncConfigs = $this->syncConfigurationRepository->findAll();
 
-		foreach($syncConfigs as $syncConfig) { /** @var $syncConfig Tx_DlDropbox_Domain_Model_SyncConfiguration  */
+		foreach($syncConfigs as $syncConfig) { /** @var $syncConfig Tx_DlDropboxsync_Domain_Model_SyncConfiguration  */
 			$this->syncRemoteToLocal($syncConfig->getRemotePath(), $syncConfig->getLocalPath());
 		}
 	}

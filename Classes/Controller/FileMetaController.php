@@ -31,7 +31,24 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_DlDropboxsync_Controller_FileMetaController extends Tx_Extbase_MVC_Controller_ActionController {
+
+	/**
+	 * fileMetaRepository
+	 *
+	 * @var Tx_DlDropboxsync_Domain_Repository_FileMetaRepository
+	 */
+	protected $fileMetaRepository;
+
+	/**
+	 * injectFileMetaRepository
+	 *
+	 * @param Tx_DlDropboxsync_Domain_Repository_FileMetaRepository $fileMetaRepository
+	 * @return void
+	 */
+	public function injectFileMetaRepository(Tx_DlDropboxsync_Domain_Repository_FileMetaRepository $fileMetaRepository) {
+		$this->fileMetaRepository = $fileMetaRepository;
+	}
 
 }
 ?>

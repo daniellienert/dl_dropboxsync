@@ -32,12 +32,12 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
 	 * syncConfigurationRepository
 	 *
-	 * @var Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository
+	 * @var Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository
 	 */
 	protected $syncConfigurationRepository;
 
@@ -50,10 +50,10 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	/**
 	 * injectSyncRepository
 	 *
-	 * @param Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncRepository
+	 * @param Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncRepository
 	 * @return void
 	 */
-	public function injectSyncConfigurationRepository(Tx_DlDropbox_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
+	public function injectSyncConfigurationRepository(Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
 		$this->syncConfigurationRepository = $syncConfigurationRepository;
 	}
 
@@ -94,7 +94,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @dontvalidate $newSync
 	 * @return void
 	 */
-	public function newAction(Tx_DlDropbox_Domain_Model_SyncConfiguration $newSync = NULL) {
+	public function newAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $newSync = NULL) {
 		$this->view->assign('newSync', $newSync);
 	}
 
@@ -104,7 +104,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @param $newSync
 	 * @return void
 	 */
-	public function createAction(Tx_DlDropbox_Domain_Model_SyncConfiguration $newSync) {
+	public function createAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $newSync) {
 		$this->syncConfigurationRepository->add($newSync);
 		$this->flashMessageContainer->add('Your new Sync was created.');
 		$this->redirect('show');
@@ -116,7 +116,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @param $sync
 	 * @return void
 	 */
-	public function editAction(Tx_DlDropbox_Domain_Model_SyncConfiguration $sync) {
+	public function editAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $sync) {
 		$this->view->assign('sync', $sync);
 	}
 
@@ -126,7 +126,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @param $sync
 	 * @return void
 	 */
-	public function updateAction(Tx_DlDropbox_Domain_Model_SyncConfiguration $sync) {
+	public function updateAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $sync) {
 		$this->syncConfigurationRepository->update($sync);
 		$this->flashMessageContainer->add('Your Sync was updated.');
 		$this->redirect('show');
@@ -138,7 +138,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * @param $sync
 	 * @return void
 	 */
-	public function deleteAction(Tx_DlDropbox_Domain_Model_SyncConfiguration $sync) {
+	public function deleteAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $sync) {
 		$this->syncConfigurationRepository->remove($sync);
 		$this->flashMessageContainer->add('Your Sync was removed.');
 		$this->redirect('show');
@@ -150,7 +150,7 @@ class Tx_DlDropbox_Controller_SyncController extends Tx_Extbase_MVC_Controller_A
 	 * Syncs all defined folders
 	 */
 	public function syncAllAction() {
-		$dropboxSync = $this->objectManager->get('Tx_DlDropbox_Domain_DropboxSync');
+		$dropboxSync = $this->objectManager->get('Tx_DlDropboxsync_Domain_DropboxSync');
 		$dropboxSync->syncAll();
 
 	}

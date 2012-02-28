@@ -1,7 +1,7 @@
 <?php
 // This class contains information about classes to be registered in autoload for testing
 
-$dldbPath = t3lib_extMgm::extPath('dl_dropbox');
+$dldbPath = t3lib_extMgm::extPath('dl_dropboxsync');
 return array(
 	'dropbox_oauth_php' => $dldbPath . 'Classes/Dropbox/src/Dropbox/OAuth/PHP.php',
 	'dropbox_oauth' => $dldbPath . 'Classes/Dropbox/src/Dropbox/OAuth.php',

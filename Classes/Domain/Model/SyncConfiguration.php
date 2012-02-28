@@ -24,15 +24,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  *
  *
  * @package dl_dropboxsync
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_DlDropbox_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
 	 * identifier
@@ -75,15 +74,6 @@ class Tx_DlDropbox_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainObjec
 	 * @var DateTime
 	 */
 	protected $lastSync;
-
-	/**
-	 * __construct
-	 *
-	 * @return void
-	 */
-	public function __construct() {
-
-	}
 
 	/**
 	 * Returns the identifier
