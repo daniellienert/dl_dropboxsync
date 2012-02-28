@@ -21,6 +21,7 @@
 			<label index="tx_dldropboxsync_domain_model_filemeta.rev">Rev</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.bytes">Bytes</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.last_synched">Last Synched</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.local_hash">Local Hash</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.sync_configuration">Sync Configuration</label>
 
 		</languageKey>

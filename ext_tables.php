@@ -14,7 +14,7 @@ if (TYPO3_MODE === 'BE') {
 		'dbs',	// Submodule key
 		'',						// Position
 		array(
-			'Sync' => 'show, new, create, edit, update, delete, list, syncAll',
+			'SyncConfiguration' => 'list, show, new, create, edit, update, delete','FileMeta' => '',
 		),
 		array(
 			'access' => 'user,group',

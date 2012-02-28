@@ -7,7 +7,7 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration">Manage sync configuration</label>
-			<label index="tx_dldropboxsync_domain_model_syncconfiguration.identifier">Identifier</label>
+			<label index="tx_dldropboxsync_domain_model_syncconfiguration.identifier">identifier</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.description">description</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.local_path">localPath</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.remote_path">remotePath</label>
@@ -20,6 +20,7 @@
 			<label index="tx_dldropboxsync_domain_model_filemeta.rev">rev</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.bytes">bytes</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.last_synched">lastSynched</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.local_hash">localHash</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.sync_configuration">syncConfiguration</label>
 		</languageKey>
 	</data>

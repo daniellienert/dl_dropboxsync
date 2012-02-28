@@ -76,6 +76,13 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	protected $lastSynched;
 
 	/**
+	 * localHash
+	 *
+	 * @var string
+	 */
+	protected $localHash;
+
+	/**
 	 * syncConfiguration
 	 *
 	 * @var Tx_DlDropboxsync_Domain_Model_SyncConfiguration
@@ -194,6 +201,25 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	 */
 	public function setLastSynched($lastSynched) {
 		$this->lastSynched = $lastSynched;
+	}
+
+	/**
+	 * Returns the localHash
+	 *
+	 * @return string $localHash
+	 */
+	public function getLocalHash() {
+		return $this->localHash;
+	}
+
+	/**
+	 * Sets the localHash
+	 *
+	 * @param string $localHash
+	 * @return void
+	 */
+	public function setLocalHash($localHash) {
+		$this->localHash = $localHash;
 	}
 
 	/**
