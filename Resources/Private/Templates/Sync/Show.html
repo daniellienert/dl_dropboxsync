@@ -1,3 +1,5 @@
+{namespace ptx=Tx_PtExtbase_ViewHelpers}
+
 <f:layout name="Default" />
 
 This Template is responsible for displaying a single view for a domain object
@@ -34,7 +36,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type" /></th>
 			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.last_sync" /></th>
 			<th> </th>
-			<th> </th>
 		</tr>
 
 		<f:for each="{syncs}" as="sync">
@@ -45,15 +46,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.remotePath}</f:link.action></td>
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.type}</f:link.action></td>
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.lastSync -> f:format.date()}</f:link.action></td>
-				<td><f:link.action action="edit" arguments="{sync : sync}">Edit</f:link.action></td>
-				<td><f:link.action action="delete" arguments="{sync : sync}">Delete</f:link.action></td>
+				<td>
+					<ptx:be.buttons.Icon uri="{f:uri.action(action:'edit', arguments:{sync : sync})}" icon='actions-document-open' title="Edit"/>
+					<ptx:be.buttons.Icon uri="{f:uri.action(action:'delete', arguments:{sync : sync})}" icon='actions-edit-delete' title="Delete"/>
+				</td>
 			</tr>
 		</f:for>
 	</table>
-
+<br />
 	<div>
-		<f:link.action action="new">New Sync settings</f:link.action>
+		<ptx:be.buttons.Icon uri="{f:uri.action(action:'new')}" icon='actions-document-new' title="New Config"/> Add Sync Config
 	</div>
+
 	<div>
 		<f:link.action action="syncAll">Sync all defined folders!</f:link.action>
 	</div>
