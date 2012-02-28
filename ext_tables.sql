@@ -57,6 +57,7 @@ CREATE TABLE tx_dldropboxsync_domain_model_filemeta (
 	rev varchar(255) DEFAULT '' NOT NULL,
 	bytes varchar(255) DEFAULT '' NOT NULL,
 	last_synched varchar(255) DEFAULT '' NOT NULL,
+	local_path varchar(255) DEFAULT '' NOT NULL,
 	local_hash varchar(255) DEFAULT '' NOT NULL,
 	sync_configuration int(11) unsigned DEFAULT '0',
 

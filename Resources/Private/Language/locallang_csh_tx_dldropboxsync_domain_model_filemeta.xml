@@ -13,6 +13,7 @@
 			<label index="rev.description">rev</label>
 			<label index="bytes.description">bytes</label>
 			<label index="last_synched.description">lastSynched</label>
+			<label index="local_path.description">localPath</label>
 			<label index="local_hash.description">localHash</label>
 			<label index="sync_configuration.description">syncConfiguration</label>
 		</languageKey>

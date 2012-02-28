@@ -148,6 +148,23 @@ class Tx_DlDropboxsync_Domain_Model_FileMetaTest extends Tx_Extbase_Tests_Unit_B
 	/**
 	 * @test
 	 */
+	public function getLocalPathReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setLocalPathForStringSetsLocalPath() { 
+		$this->fixture->setLocalPath('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getLocalPath()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getLocalHashReturnsInitialValueForString() { }
 
 	/**

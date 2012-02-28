@@ -76,6 +76,13 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	protected $lastSynched;
 
 	/**
+	 * localPath
+	 *
+	 * @var string
+	 */
+	protected $localPath;
+
+	/**
 	 * localHash
 	 *
 	 * @var string
@@ -201,6 +208,25 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	 */
 	public function setLastSynched($lastSynched) {
 		$this->lastSynched = $lastSynched;
+	}
+
+	/**
+	 * Returns the localPath
+	 *
+	 * @return string $localPath
+	 */
+	public function getLocalPath() {
+		return $this->localPath;
+	}
+
+	/**
+	 * Sets the localPath
+	 *
+	 * @param string $localPath
+	 * @return void
+	 */
+	public function setLocalPath($localPath) {
+		$this->localPath = $localPath;
 	}
 
 	/**

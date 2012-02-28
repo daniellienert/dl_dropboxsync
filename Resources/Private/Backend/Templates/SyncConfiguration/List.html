@@ -1,0 +1,46 @@
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<h1>Listing for SyncConfiguration</h1>
+
+<f:flashMessages />
+
+<table  class="tx_dldropboxsync" >
+	<tr>
+		<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.identifier" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.description" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.local_path" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.remote_path" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type" /></th>
+		<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.last_sync" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{syncConfigurations}" as="syncConfiguration">
+		<tr>
+			<td><f:link.action action="show" arguments="{syncConfiguration : syncConfiguration}"> {syncConfiguration.identifier}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{syncConfiguration : syncConfiguration}"> {syncConfiguration.description}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{syncConfiguration : syncConfiguration}"> {syncConfiguration.localPath}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{syncConfiguration : syncConfiguration}"> {syncConfiguration.remotePath}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{syncConfiguration : syncConfiguration}"> {syncConfiguration.type}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{syncConfiguration : syncConfiguration}"> {syncConfiguration.lastSync -> f:format.date()}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{syncConfiguration : syncConfiguration}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{syncConfiguration : syncConfiguration}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New SyncConfiguration</f:link.action>
+</f:section>
