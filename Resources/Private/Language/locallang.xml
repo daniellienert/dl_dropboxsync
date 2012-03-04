@@ -19,7 +19,7 @@
 			<label index="tx_dldropboxsync_domain_model_filemeta.remote_path">remotePath</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.rev">rev</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.bytes">bytes</label>
-			<label index="tx_dldropboxsync_domain_model_filemeta.last_synched">lastSynched</label>
+			<label index="tx_dldropboxsync_domain_model_filemeta.last_synced">lastSynced</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.local_path">localPath</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.local_hash">localHash</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.sync_configuration">syncConfiguration</label>

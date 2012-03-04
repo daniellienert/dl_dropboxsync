@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_dldropboxsync_domain_model_filemeta'] = array(
 	'ctrl' => $TCA['tx_dldropboxsync_domain_model_filemeta']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, mime_type, modified, remote_path, rev, bytes, last_synched, local_path, local_hash, sync_configuration',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, mime_type, modified, remote_path, rev, bytes, last_synced, local_path, local_hash, sync_configuration,last_touched_by_sync',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, mime_type, modified, remote_path, rev, bytes, last_synched, local_path, local_hash, sync_configuration,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, mime_type, modified, remote_path, rev, bytes, last_synced, local_path, local_hash, sync_configuration,last_touched_by_sync,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -122,6 +122,15 @@ $TCA['tx_dldropboxsync_domain_model_filemeta'] = array(
 				'eval' => 'trim'
 			),
 		),
+		'last_touched_by_sync' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.last_touched_by_sync',
+			'config' => array(
+				'type' => 'input',
+				'size' => 250,
+				'eval' => 'trim'
+			),
+		),
 		'rev' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.rev',
@@ -140,9 +149,9 @@ $TCA['tx_dldropboxsync_domain_model_filemeta'] = array(
 				'eval' => 'trim'
 			),
 		),
-		'last_synched' => array(
+		'last_synced' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.last_synched',
+			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_filemeta.last_synced',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,

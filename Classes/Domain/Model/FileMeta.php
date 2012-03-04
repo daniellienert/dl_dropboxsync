@@ -69,11 +69,11 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	protected $bytes;
 
 	/**
-	 * lastSynched
+	 * lastSynced
 	 *
 	 * @var string
 	 */
-	protected $lastSynched;
+	protected $lastSynced;
 
 	/**
 	 * localPath
@@ -95,6 +95,17 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	 * @var Tx_DlDropboxsync_Domain_Model_SyncConfiguration
 	 */
 	protected $syncConfiguration;
+
+
+	/**
+	 * This set to the current sync run uuid. It is
+	 * used to identify not touched files which
+	 * have to be deleted.
+	 *
+	 * @var string
+	 */
+	protected $lastTouchedBySync;
+
 
 	/**
 	 * Returns the mimeType
@@ -192,22 +203,22 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	}
 
 	/**
-	 * Returns the lastSynched
+	 * Returns the lastSynced
 	 *
-	 * @return string $lastSynched
+	 * @return string $lastSynced
 	 */
-	public function getLastSynched() {
-		return $this->lastSynched;
+	public function getLastSynced() {
+		return $this->lastSynced;
 	}
 
 	/**
-	 * Sets the lastSynched
+	 * Sets the lastSynced
 	 *
-	 * @param string $lastSynched
+	 * @param string $lastSynced
 	 * @return void
 	 */
-	public function setLastSynched($lastSynched) {
-		$this->lastSynched = $lastSynched;
+	public function setLastSynced($lastSynced) {
+		$this->lastSynced = $lastSynced;
 	}
 
 	/**
@@ -265,6 +276,20 @@ class Tx_DlDropboxsync_Domain_Model_FileMeta extends Tx_Extbase_DomainObject_Abs
 	 */
 	public function setSyncConfiguration(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfiguration) {
 		$this->syncConfiguration = $syncConfiguration;
+	}
+
+	/**
+	 * @param string $lastTouchedBySync
+	 */
+	public function setLastTouchedBySync($lastTouchedBySync) {
+		$this->lastTouchedBySync = $lastTouchedBySync;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLastTouchedBySync() {
+		return $this->lastTouchedBySync;
 	}
 
 }

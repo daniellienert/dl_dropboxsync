@@ -57,6 +57,19 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 	protected $flashMessageContainer;
 
 
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected $objectManager;
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
 
 	/**
 	 * @param Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox
@@ -103,12 +116,27 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 		$syncConfigs = $this->syncConfigurationRepository->findAll();
 
 		foreach($syncConfigs as $syncConfig) { /** @var $syncConfig Tx_DlDropboxsync_Domain_Model_SyncConfiguration  */
-			$this->syncRemoteToLocal($syncConfig->getRemotePath(), $syncConfig->getLocalPath());
+			$syncRun = $this->buildSyncRun($syncConfig);
+			$this->syncRemoteToLocal($syncRun);
 
-			$syncConfig->setLastSync(time());
+			$syncConfig->setLastSync(new DateTime());
 			$this->syncConfigurationRepository->update($syncConfig);
 		}
 	}
+
+
+
+	/**
+	 * @param Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfiguration
+	 * @return Tx_DlDropboxsync_Domain_Dropbox_SyncRun
+	 */
+	protected function buildSyncRun(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfiguration) {
+		$syncRun = $this->objectManager->get('Tx_DlDropboxsync_Domain_Dropbox_SyncRun'); /** @var $syncRun Tx_DlDropboxsync_Domain_Dropbox_SyncRun */
+		$syncRun->setSyncConfiguration($syncConfiguration);
+
+		return $syncRun;
+	}
+
 
 
 	/**
@@ -116,37 +144,42 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 	 * @param $localPath
 	 * @param bool $recursive
 	 */
-	protected function syncRemoteToLocal($remotePath, $localPath, $recursive = FALSE) {
+	protected function syncRemoteToLocal(Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun, $recursive = FALSE) {
 
-		$dbDirList = $this->getDBDirectoryList($remotePath);
+		$dbDirList = $this->getDBDirectoryList($syncRun->getSyncConfiguration()->getRemotePath());
 		if($dbDirList !== FALSE) {
 
 			foreach($dbDirList['contents'] as $dbDirEntry) {
 				if($dbDirEntry['is_dir'] == FALSE) {
-					if($this->fileTracker->isRemoteFileChanged($dbDirEntry['path'], $dbDirEntry['rev'])) {
-						$this->downloadDBFileToDirectory($dbDirEntry, $localPath);
-						error_log('Downloaded ' . $dbDirEntry['path'] . ' to ' . $localPath);
+					$remotePath = $dbDirEntry['path'];
+
+					$this->fileTracker->flagFileAsProcessedByRemoteFile($remotePath, $syncRun);
+
+					if($this->fileTracker->isRemoteFileChanged($remotePath, $dbDirEntry['rev'])) {
+						$this->downloadDBFileToDirectory($syncRun, $dbDirEntry);
+						error_log('Downloaded ' . $remotePath . ' to ' . $syncRun->getLocalPath());
 					} else {
-						error_log('Skiped ' . $dbDirEntry['path'] . ' because we already have the newest file.');
+						error_log('Skiped ' . $$remotePath . ' because we already have the newest file.');
 					}
+
 				}
 			}
 		}
 	}
 
 
-	protected function downloadDBFileToDirectory($dbDirEntry, $localPath) {
+	protected function downloadDBFileToDirectory(Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun, $dbDirEntry) {
 		$dbPathAndFileName = $dbDirEntry['path'];
 
-		t3lib_div::mkdir_deep($this->getFileadminPath(), $localPath);
+		t3lib_div::mkdir_deep($this->getFileadminPath(), $syncRun->getLocalPath());
 		
 		$dbFileName = basename($dbPathAndFileName); 
-		$localPathAndFileName = $this->getFileadminPath() . $localPath . '/' . $dbFileName;
+		$localPathAndFileName = $this->getFileadminPath() . $syncRun->getLocalPath() . '/' . $dbFileName;
 
 		$fileContent = $this->dropbox->getFile($dbPathAndFileName);
 		file_put_contents($localPathAndFileName, $fileContent);
 
-		$this->fileTracker->updateFileMeta($localPathAndFileName, $dbDirEntry);
+		$this->fileTracker->updateFileMeta($localPathAndFileName, $dbDirEntry, $syncRun);
 	}
 
 
