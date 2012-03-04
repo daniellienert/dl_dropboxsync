@@ -1,0 +1,20 @@
+
+{namespace ptx=Tx_PtExtbase_ViewHelpers}
+<f:if condition="{isAuthenticated}">
+	<f:then>
+		<div>
+			<ptx:be.buttons.Icon uri="{f:uri.action(action:'disconnectDropbox', controller:'OAuth')}"  icon='apps-pagetree-drag-place-denied' title="Disconnect Dropbox"/>
+			<f:link.action action="disconnectDropbox" controller="OAuth">Disconnect Dropbox</f:link.action>
+		</div>
+	</f:then>
+	<f:else>
+		<div>
+			<ptx:be.buttons.Icon uri="#" onclick="vHWin=window.open('{f:uri.action(action:'connectRequest', controller:'OAuth')}','dboauthpopup','height=600,width=800,status=0,menubar=0,scrollbars=1');vHWin.focus();return false;" icon='apps-pagetree-page-shortcut-external-root' title="Connect to dropbox"/>
+			<span>
+				<a onclick="vHWin=window.open('{f:uri.action(action:'connectRequest', controller:'OAuth')}','dboauthpopup','height=600,width=800,status=0,menubar=0,scrollbars=1');vHWin.focus();return false;" href="#">
+					Connect to Dropbox
+				</a>
+			</span>
+		</div>
+	</f:else>
+</f:if>

@@ -104,6 +104,9 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 
 		foreach($syncConfigs as $syncConfig) { /** @var $syncConfig Tx_DlDropboxsync_Domain_Model_SyncConfiguration  */
 			$this->syncRemoteToLocal($syncConfig->getRemotePath(), $syncConfig->getLocalPath());
+
+			$syncConfig->setLastSync(time());
+			$this->syncConfigurationRepository->update($syncConfig);
 		}
 	}
 

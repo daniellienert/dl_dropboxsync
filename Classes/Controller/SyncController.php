@@ -41,6 +41,7 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 */
 	protected $syncConfigurationRepository;
 
+
 	/**
 	 * @var Tx_PtExtbase_State_Session_Storage_SessionAdapter
 	 */
@@ -48,14 +49,27 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 
 
 	/**
-	 * injectSyncRepository
-	 *
-	 * @param Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncRepository
-	 * @return void
+	 * @var Tx_DlDropboxsync_Domain_Dropbox_Dropbox
+	 */
+	protected $dropbox;
+
+
+
+	/**
+	 * @param Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository
 	 */
 	public function injectSyncConfigurationRepository(Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
 		$this->syncConfigurationRepository = $syncConfigurationRepository;
 	}
+
+
+	/**
+	 * @param Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox
+	 */
+	public function injectDropbox(Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox) {
+		$this->dropbox = $dropbox;
+	}
+
 
 
 	public function initializeAction() {
@@ -76,15 +90,9 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 			$this->forward('connectResponse', 'OAuth');
 		}
 
-		/*
-		$dropbox = $this->objectManager->get('Tx_DlDropbox_Domain_Dropbox');
-		$info = $dropbox->getMetaData();
-
-		$this->view->assign('info', $info['contents']);
-		*/
-
 		$syncs = $this->syncConfigurationRepository->findAll();
 		$this->view->assign('syncs', $syncs);
+		$this->view->assign('isAuthenticated', $this->dropbox->isAuthenticated());
 	}
 
 	/**
@@ -153,6 +161,7 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 		$dropboxSync = $this->objectManager->get('Tx_DlDropboxsync_Domain_Dropbox_DropboxSync');
 		$dropboxSync->syncAll();
 
+		$this->forward('show');
 	}
 
 }

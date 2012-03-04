@@ -18,14 +18,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:flashMessages />
 
-<div>
-	<a onclick="vHWin=window.open('{f:uri.action(action:'connectRequest', controller:'OAuth')}','dboauthpopup','height=600,width=800,status=0,menubar=0,scrollbars=1');vHWin.focus();return false;" href="#">
-		Connect to Dropbox
-	</a>
-</div>
-<div>
-	<f:link.action action="disconnectDropbox" controller="OAuth">Disconnect Dropbox</f:link.action>
-</div>
+	<f:render partial="DropboxStatus" arguments="{isAuthenticated:isAuthenticated}" />
 
 	<table  class="tx_dldropbox typo3-dblist">
 		<tr class="t3-row-header">
@@ -61,5 +54,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<div>
 		<f:link.action action="syncAll">Sync all defined folders!</f:link.action>
 	</div>
+
 </f:section>
 

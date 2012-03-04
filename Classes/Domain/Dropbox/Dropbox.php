@@ -47,7 +47,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 
 
 	/**
-	 * @var bool is authenticated to dropbox?
+	 * @var bool are we authenticated to dropbox?
 	 */
 	protected $isAuthenticated = FALSE;
 
@@ -58,13 +58,17 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	protected $registry;
 
 
-	public function __construct() {
+	/**
+	 * Initialize the object
+	 */
+	public function initializeObject() {
 		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
 		$this->registry = t3lib_div::makeInstance('t3lib_Registry');
 
 		$this->initOAuth();
 		$this->dropbox = new Dropbox_API($this->oAuth);
 	}
+
 
 
 	protected  function initOAuth() {
@@ -111,6 +115,15 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	 */
 	public function getOAuth() {
 		return $this->oAuth;
+	}
+
+
+
+	/**
+	 * @return mixed
+	 */
+	public function isAuthenticated() {
+		return $this->isAuthenticated;
 	}
 
 }

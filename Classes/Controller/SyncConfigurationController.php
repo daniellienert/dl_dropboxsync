@@ -67,6 +67,7 @@ class Tx_DlDropboxsync_Controller_SyncConfigurationController extends Tx_Extbase
 	 * @return void
 	 */
 	public function showAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfiguration) {
+
 		$this->view->assign('syncConfiguration', $syncConfiguration);
 	}
 
