@@ -6,13 +6,21 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_dldropboxsync_domain_model_syncconfiguration">Manage sync configuration</label>
+			<label index="tx_dldropboxsync_scheduler.name">Dropbox Sync</label>
+			<label index="tx_dldropboxsync_scheduler.description">Execute the defined dropbox sync configurations.</label>
+
+            <label index="tx_dldropboxsync_domain_model_syncconfiguration">Manage sync configuration</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.identifier">Identifier</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.description">Description</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.local_path">Local Path</label>
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.remote_path">Remote Path</label>
+
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.type">Type</label>
+            <label index="tx_dldropboxsync_domain_model_syncconfiguration.type.0">Sync In</label>
+            <label index="tx_dldropboxsync_domain_model_syncconfiguration.type.1">Sync Out</label>
+
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.last_sync">Last Sync</label>
+
 			<label index="tx_dldropboxsync_domain_model_filemeta">File Meta</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.mime_type">mimeType</label>
 			<label index="tx_dldropboxsync_domain_model_filemeta.modified">modified</label>

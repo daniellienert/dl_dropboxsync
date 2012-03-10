@@ -38,7 +38,9 @@
 			<f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type" />
 		</td>
 		<td>
-			<f:form.textfield property="type"/>
+
+
+			<f:form.select options="{'in':'{f:translate(key:'tx_dldropboxsync_domain_model_syncconfiguration.type.in')}'}" property="type"/>
 		</td>
 	</tr>
 </table>

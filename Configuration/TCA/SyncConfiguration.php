@@ -134,8 +134,8 @@ $TCA['tx_dldropboxsync_domain_model_syncconfiguration'] = array(
 			'label' => 'LLL:EXT:dl_dropboxsync/Resources/Private/Language/locallang_db.xml:tx_dldropboxsync_domain_model_syncconfiguration.type',
 			'config' => array(
 				'type' => 'input',
-				'size' => 4,
-				'eval' => 'int'
+				'size' => 5,
+				'eval' => 'trim'
 			),
 		),
 		'last_sync' => array(

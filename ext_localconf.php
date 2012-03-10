@@ -33,4 +33,10 @@
 
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
+	$TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['Tx_DlDropboxsync_Scheduler_Synchronisation'] = array(
+		'extension' => $_EXTKEY,
+		'title' => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang.xml:tx_dldropboxsync_scheduler.name',
+		'description' => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang.xml:tx_dldropboxsync_scheduler.description',
+	);
+
 ?>
