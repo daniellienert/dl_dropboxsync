@@ -64,9 +64,9 @@ class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainO
 	/**
 	 * type
 	 *
-	 * @var integer
+	 * @var string
 	 */
-	protected $type;
+	protected $syncType;
 
 	/**
 	 * lastSync
@@ -151,24 +151,6 @@ class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainO
 		$this->remotePath = $remotePath;
 	}
 
-	/**
-	 * Returns the type
-	 *
-	 * @return integer $type
-	 */
-	public function getType() {
-		return $this->type;
-	}
-
-	/**
-	 * Sets the type
-	 *
-	 * @param integer $type
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
 
 	/**
 	 * Returns the lastSync
@@ -187,6 +169,20 @@ class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainO
 	 */
 	public function setLastSync($lastSync) {
 		$this->lastSync = $lastSync;
+	}
+
+	/**
+	 * @param string $syncType
+	 */
+	public function setSyncType($syncType) {
+		$this->syncType = $syncType;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSyncType() {
+		return $this->syncType;
 	}
 
 }

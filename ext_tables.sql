@@ -10,7 +10,7 @@ CREATE TABLE tx_dldropboxsync_domain_model_syncconfiguration (
 	description varchar(255) DEFAULT '' NOT NULL,
 	local_path varchar(255) DEFAULT '' NOT NULL,
 	remote_path varchar(255) DEFAULT '' NOT NULL,
-	type varchar(5) DEFAULT '' NOT NULL,
+	sync_type varchar(5) DEFAULT '' NOT NULL,
 	last_sync int(11) DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

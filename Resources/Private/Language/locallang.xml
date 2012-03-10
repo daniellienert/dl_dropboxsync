@@ -16,8 +16,8 @@
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.remote_path">Remote Path</label>
 
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.type">Type</label>
-            <label index="tx_dldropboxsync_domain_model_syncconfiguration.type.0">Sync In</label>
-            <label index="tx_dldropboxsync_domain_model_syncconfiguration.type.1">Sync Out</label>
+            <label index="tx_dldropboxsync_domain_model_syncconfiguration.type.in">Dropbox to local</label>
+            <label index="tx_dldropboxsync_domain_model_syncconfiguration.type.out">Local to dropbox</label>
 
 			<label index="tx_dldropboxsync_domain_model_syncconfiguration.last_sync">Last Sync</label>
 

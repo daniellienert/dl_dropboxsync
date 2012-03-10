@@ -37,7 +37,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.description}</f:link.action></td>
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.localPath}</f:link.action></td>
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.remotePath}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.type}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{sync : sync}"> <f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type.{sync.syncType}" /> </f:link.action></td>
 				<td><f:link.action action="show" arguments="{sync : sync}"> {sync.lastSync -> f:format.date()}</f:link.action></td>
 				<td>
 					<ptx:be.buttons.Icon uri="{f:uri.action(action:'edit', arguments:{sync : sync})}" icon='actions-document-open' title="Edit"/>
