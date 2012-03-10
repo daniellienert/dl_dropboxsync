@@ -33,6 +33,10 @@
  */
 class Tx_DlDropboxsync_Scheduler_Synchronisation extends tx_scheduler_Task {
 
+	/**
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
+	protected $objectManager;
 
 	/**
 	 * This is the main method that is called when a task is executed
@@ -44,9 +48,29 @@ class Tx_DlDropboxsync_Scheduler_Synchronisation extends tx_scheduler_Task {
 	 * @return boolean Returns TRUE on successful execution, FALSE on error
 	 */
 	public function execute() {
+		$this->setupFramework();
 
+		$dropboxSync = $this->objectManager->get('Tx_DlDropboxsync_Domain_Dropbox_DropboxSync');
+		$dropboxSync->syncAll();
 
 		return true;
+	}
+
+
+	/**
+	 * @return void
+	 */
+	protected function setupFramework() {
+
+		$configuration = array(
+			'extensionName' => 'DlDropboxSync',
+			'pluginName' => 'tx_dldropboxsync_dbs'
+		);
+
+		$bootstrap = t3lib_div::makeInstance('Tx_Extbase_Core_Bootstrap');
+		$bootstrap->initialize($configuration);
+
+		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 	}
 }
 ?>
