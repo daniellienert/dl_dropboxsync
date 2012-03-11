@@ -23,7 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_DlDropboxsync_Configuration_Configuration extends Tx_PtExtbase_Configuration_AbstractConfiguration implements t3lib_Singleton {
+class Tx_DlDropboxsync_Configuration_Configuration implements t3lib_Singleton {
 
 	/**
 	 * @var string
@@ -37,7 +37,7 @@ class Tx_DlDropboxsync_Configuration_Configuration extends Tx_PtExtbase_Configur
 	protected $dropboxConsumerKey = '';
 
 
-	public function initializeAction() {
+	public function initializeObject() {
 		$this->settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['dl_dropboxsync']);
 		$this->init();
 	}
@@ -47,6 +47,28 @@ class Tx_DlDropboxsync_Configuration_Configuration extends Tx_PtExtbase_Configur
 		$this->setRequiredValue('dropboxConsumerKey', 'No dropbox consumer key set. Please set this value in the extension installation dialog');
 		$this->setRequiredValue('dropboxConsumerSecret', 'No dropbox consumer secret set. Please set this value in the extension installation dialog');
 	}
+
+
+
+	/**
+	 * Checks if the tsKey exists in the settings and throw an exception with the given method if not
+	 *
+	 * @param string $tsKey with the value to copy to the internal property
+	 * @param string_type $errorMessageIfNotExists
+	 * @param string $internalPropertyName optional property name if it is deiferent from the tsKey
+	 * @throws Exception
+	 */
+	protected function setRequiredValue($tsKey, $errorMessageIfNotExists, $internalPropertyName = NULL) {
+		if (!array_key_exists($tsKey, $this->settings)
+			|| (is_array($this->settings[$tsKey]) && empty($this->settings[$tsKey]))
+			|| (!is_array($this->settings[$tsKey]) && (strlen(trim($this->settings[$tsKey])) === 0))) {
+			Throw new Exception($errorMessageIfNotExists);
+		}
+
+		$property = $internalPropertyName ? $internalPropertyName : $tsKey;
+		$this->$property = $this->settings[$tsKey];
+	}
+
 
 	/**
 	 * @return string
@@ -61,5 +83,6 @@ class Tx_DlDropboxsync_Configuration_Configuration extends Tx_PtExtbase_Configur
 	public function getDropboxConsumerSecret() {
 		return $this->dropboxConsumerSecret;
 	}
+
 
 }

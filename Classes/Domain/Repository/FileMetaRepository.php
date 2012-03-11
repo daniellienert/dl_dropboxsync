@@ -67,7 +67,9 @@ class Tx_DlDropboxsync_Domain_Repository_FileMetaRepository extends Tx_Extbase_P
 		return $query->matching(
 			$query->logicalAnd(
 				$query->equals('sync_configuration', $syncConfig),
-				$query->logicalNot('last_touched_by_sync', $runIdentifier)
+				$query->logicalNot(
+					$query->equals('last_touched_by_sync', $runIdentifier)
+				)
 			)
 		)->execute();
 	}

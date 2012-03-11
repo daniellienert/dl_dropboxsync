@@ -67,7 +67,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	 * @param Tx_DlDropboxsync_Configuration_Configuration $configuration
 	 */
 	public function injectConfiguration(Tx_DlDropboxsync_Configuration_Configuration $configuration) {
-		$this->configuration = $configuration
+		$this->configuration = $configuration;
 	}
 
 

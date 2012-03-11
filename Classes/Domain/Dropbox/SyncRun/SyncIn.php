@@ -30,7 +30,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 	/**
 	 * Start the synchronisation
 	 */
-	protected function startSync() {
+	public function startSync() {
 
 		$dbDirList = $this->getDBDirectoryList($this->syncConfig->getRemotePath());
 		if($dbDirList !== FALSE) {
