@@ -57,6 +57,19 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	 */
 	protected $registry;
 
+	/**
+	 * @var Tx_DlDropboxsync_Configuration_Configuration
+	 */
+	protected $configuration;
+
+
+	/**
+	 * @param Tx_DlDropboxsync_Configuration_Configuration $configuration
+	 */
+	public function injectConfiguration(Tx_DlDropboxsync_Configuration_Configuration $configuration) {
+		$this->configuration = $configuration
+	}
+
 
 	/**
 	 * Initialize the object
@@ -70,9 +83,14 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	}
 
 
-
+	/**
+	 * Initialize open authentication
+	 */
 	protected  function initOAuth() {
-		$this->oAuth = new Dropbox_OAuth_PHP('xyr5aaaeko7l78v', 'gwdrjhgythr1pfx');
+		$this->oAuth = new Dropbox_OAuth_PHP(
+			$this->configuration->getDropboxConsumerKey(),
+			$this->configuration->getDropboxConsumerSecret()
+		);
 
 		$oAuthTokens = $this->registry->get('tx_dlDropbox', 'oauth_tokens');
 

@@ -25,4 +25,74 @@
 
 class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo {
 
+	/**
+	 * @var int
+	 */
+	protected $runStartDate;
+
+
+	/**
+	 * @var array
+	 */
+	protected $localFiles;
+
+
+	/**
+	 * @param \Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfiguration
+	 */
+	public function setSyncConfiguration($syncConfiguration) {
+		$this->syncConfiguration = $syncConfiguration;
+	}
+
+
+	/**
+	 * @return \Tx_DlDropboxsync_Domain_Model_SyncConfiguration
+	 */
+	public function getSyncConfiguration() {
+		return $this->syncConfiguration;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLocalPath() {
+		return $this->syncConfiguration->getLocalPath();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getRemotePath() {
+		return $this->syncConfiguration->getRemotePath();
+	}
+
+
+	public function logStart() {
+		$this->runStartDate = time();
+	}
+
+
+	public function logLocalFileAdded($remoteFile, $localFile) {
+		$this->localFiles['add'][] = array(
+			'remote' => $remoteFile,
+			'local' => $localFile
+		);
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getRunInfo() {
+		$runInfo = array(
+			'configuration' => $this->syncConfiguration->getIdentifier(),
+			'runIdentifier' => $this->runIdentifier,
+			'startTime' => $this->runStartDate,
+			'endTime' => time(),
+		);
+
+		return $runInfo;
+	}
+
 }

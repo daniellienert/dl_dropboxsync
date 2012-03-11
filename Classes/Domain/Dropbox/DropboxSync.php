@@ -68,14 +68,12 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 
 
 	/**
-	 * injectSyncRepository
-	 *
-	 * @param Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncRepository
-	 * @return void
-	 */
+	* @param Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository
+	*/
 	public function injectSyncConfigurationRepository(Tx_DlDropboxsync_Domain_Repository_SyncConfigurationRepository $syncConfigurationRepository) {
 		$this->syncConfigurationRepository = $syncConfigurationRepository;
 	}
+
 
 
 	public function syncAll() {

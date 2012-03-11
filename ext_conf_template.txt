@@ -1,0 +1,5 @@
+  # cat=basic; type=string; label=Consumer Key
+dropboxConsumerKey =
+
+  # cat=basic; type=string; label=Consumer Secret
+dropboxConsumerSecret =

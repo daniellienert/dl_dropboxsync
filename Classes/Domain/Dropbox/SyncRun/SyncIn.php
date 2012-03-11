@@ -42,7 +42,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 					$this->fileTracker->flagFileAsProcessedByRemoteFile($remotePath, $this->runIdentifier);
 
 					if($this->fileTracker->isRemoteFileChanged($remotePath, $dbDirEntry['rev'])) {
-						$this->downloadDBFileToDirectory($syncRun, $dbDirEntry);
+						$this->downloadDBFileToDirectory($dbDirEntry);
 					}
 				}
 			}
@@ -51,7 +51,6 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 
 		}
 	}
-
 
 
 	/**
@@ -86,5 +85,4 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 		$this->fileTracker->updateFileMeta($localPathAndFileName, $dbDirEntry, $this->syncConfig, $this->runIdentifier);
 		//$syncRun->logLocalFileAdded($dbPathAndFileName, $localPathAndFileName);
 	}
-
 }
