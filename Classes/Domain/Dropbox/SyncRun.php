@@ -41,28 +41,31 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun {
 	protected $syncConfiguration;
 
 
-	/**
-	 * @var
-	 */
-	protected $runIdentifier;
 
 
 
 	/**
-	 * Sync run identifier
+	 * @var int
 	 */
-	public function initializeObject() {
-		$this->runIdentifier = uniqid('dropboxSyncRun', true);
-	}
+	protected $runStartDate;
 
 
 
 	/**
-	 * @return
+	 * @var array
 	 */
-	public function getRunIdentifier() {
-		return $this->runIdentifier;
-	}
+	protected $localFiles;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,12 +92,39 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun {
 		return $this->syncConfiguration->getLocalPath();
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getRemotePath() {
 		return $this->syncConfiguration->getRemotePath();
+	}
+
+
+	public function start() {
+		$this->runStartDate = time();
+	}
+
+
+	public function logLocalFileAdded($remoteFile, $localFile) {
+		$this->localFiles['add'][] = array(
+			'remote' => $remoteFile,
+			'local' => $localFile
+		);
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getRunInfo() {
+		$runInfo = array(
+			'configuration' => $this->syncConfiguration->getIdentifier(),
+			'runIdentifier' => $this->runIdentifier,
+			'startTime' => $this->runStartDate,
+			'endTime' => time(),
+		);
+
+		return $runInfo;
 	}
 }
 ?>

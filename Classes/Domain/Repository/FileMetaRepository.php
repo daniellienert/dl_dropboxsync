@@ -51,5 +51,26 @@ class Tx_DlDropboxsync_Domain_Repository_FileMetaRepository extends Tx_Extbase_P
 		return $result->current();
 	}
 
+
+
+	/**
+	 * Get all file meta data covered by a given sync config but
+	 * not updated by the given run identifier
+	 *
+	 * @param Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfig
+	 * @param $runIdentifier
+	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 */
+	public function findAllByConfigWithoutRunIdentifier(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfig, $runIdentifier) {
+		$query = $this->createQuery();
+
+		return $query->matching(
+			$query->logicalAnd(
+				$query->equals('sync_configuration', $syncConfig),
+				$query->logicalNot('last_touched_by_sync', $runIdentifier)
+			)
+		)->execute();
+	}
+
 }
 ?>

@@ -57,33 +57,43 @@ class Tx_DlDropboxsync_Domain_Dropbox_FileTracker implements t3lib_Singleton {
 
 	/**
 	 * @param $remoteFilePath
-	 * @param Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun
+	 * @param $runIdentifier
 	 */
-	public function flagFileAsProcessedByRemoteFile($remoteFilePath, Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun) {
+	public function flagFileAsProcessedByRemoteFile($remoteFilePath, $runIdentifier) {
 		$fileMeta = $this->fileMetaRepository->findOneByRemotePath($remoteFilePath); /** @var $fileMeta Tx_DlDropboxsync_Domain_Model_FileMeta */
-		$this->flagFileMetaAsProcessed($fileMeta, $syncRun);
+		$this->flagFileMetaAsProcessed($fileMeta, $runIdentifier);
 	}
 
 
 	/**
 	 * @param $localFilePath
-	 * @param Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun
+	 * @param $runIdentifier
 	 */
-	public function flagFileAsProcessedByLocalFile($localFilePath, Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun) {
+	public function flagFileAsProcessedByLocalFile($localFilePath, $runIdentifier) {
 		$fileMeta = $this->fileMetaRepository->findOneByLocalPath($localFilePath);
-		$this->flagFileMetaAsProcessed($fileMeta, $syncRun);
+		$this->flagFileMetaAsProcessed($fileMeta, $runIdentifier);
 	}
 
 
 	/**
-	 * @param Tx_DlDropboxsync_Domain_Model_FileMeta $fileMeta
-	 * @param Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun
+	 * @param null|Tx_DlDropboxsync_Domain_Model_FileMeta $fileMeta
+	 * @param $runIdentifier
 	 */
-	protected function flagFileMetaAsProcessed(Tx_DlDropboxsync_Domain_Model_FileMeta $fileMeta = NULL, Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun) {
-		if($fileMeta instanceof Tx_DlDropboxsync_Domain_Model_FileMeta) {
-			$fileMeta->setLastTouchedBySync($syncRun->getRunIdentifier());
+	protected function flagFileMetaAsProcessed(Tx_DlDropboxsync_Domain_Model_FileMeta $fileMeta = NULL, $runIdentifier) {
+		if ($fileMeta instanceof Tx_DlDropboxsync_Domain_Model_FileMeta) {
+			$fileMeta->setLastTouchedBySync($runIdentifier);
 			$this->fileMetaRepository->update($fileMeta);
 		}
+	}
+
+
+	/**
+	 * @param Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfig
+	 * @param $runIdentifier
+	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 */
+	public function getLocalFilesNotProcessedByRun(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfig, $runIdentifier) {
+		return $this->fileMetaRepository->findAllByConfigWithoutRunIdentifier($syncConfig, $runIdentifier);
 	}
 
 
@@ -108,13 +118,12 @@ class Tx_DlDropboxsync_Domain_Dropbox_FileTracker implements t3lib_Singleton {
 
 
 	/**
-	 * Add or update the file meta entry of a synchronized file
-	 *
 	 * @param $localFilePath
 	 * @param $remoteFileArray
-	 * @param $syncRun Tx_DlDropboxsync_Domain_Dropbox_SyncRun
+	 * @param Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfig
+	 * @param $runIdentifier
 	 */
-	public function updateFileMeta($localFilePath, $remoteFileArray, Tx_DlDropboxsync_Domain_Dropbox_SyncRun $syncRun) {
+	public function updateFileMeta($localFilePath, $remoteFileArray, Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfig, $runIdentifier) {
 		$fileMeta = $this->fileMetaRepository->findOneByLocalPath($localFilePath);
 
 		if(!$fileMeta) {
@@ -128,8 +137,8 @@ class Tx_DlDropboxsync_Domain_Dropbox_FileTracker implements t3lib_Singleton {
 		$fileMeta->setModified($remoteFileArray['modified']);
 		$fileMeta->setRev($remoteFileArray['rev']);
 		$fileMeta->setRemotePath($remoteFileArray['path']);
-		$fileMeta->setSyncConfiguration($syncRun->getSyncConfiguration());
-		$fileMeta->setLastSynced($syncRun->getRunIdentifier());
+		$fileMeta->setSyncConfiguration($syncConfig);
+		$fileMeta->setLastSynced($runIdentifier);
 
 		$fileMeta->setLocalPath($localFilePath);
 		$fileMeta->setLocalHash($this->getHashOfLocalFile($localFilePath));

@@ -75,6 +75,12 @@ class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainO
 	 */
 	protected $lastSync;
 
+
+	/**
+	 * @var string
+	 */
+	protected $lastSyncInfo;
+
 	/**
 	 * Returns the identifier
 	 *
@@ -183,6 +189,20 @@ class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainO
 	 */
 	public function getSyncType() {
 		return $this->syncType;
+	}
+
+	/**
+	 * @param string $lastSyncInfo
+	 */
+	public function setLastSyncInfo($lastSyncInfo) {
+		$this->lastSyncInfo = $lastSyncInfo;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLastSyncInfo() {
+		return $this->lastSyncInfo;
 	}
 
 }
