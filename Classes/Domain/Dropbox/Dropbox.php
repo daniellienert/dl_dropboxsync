@@ -116,6 +116,11 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	}
 
 
+	public function pathExists($path) {
+		$metaData = $this->getMetaData($path, false);
+	}
+
+
 	/**
 	 * Returns a file's contents
 	 *

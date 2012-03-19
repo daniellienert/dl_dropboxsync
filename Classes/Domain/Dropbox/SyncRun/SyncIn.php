@@ -90,6 +90,6 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 		file_put_contents($localPathAndFileName, $fileContent);
 
 		$this->fileTracker->updateFileMeta($localPathAndFileName, $dbDirEntry, $this->syncConfig, $this->runIdentifier);
-		$this->runInfo->logLocalFileAdded($dbPathAndFileName, $localPathAndFileName);
+		$this->runInfo->logLocalFileAdded($dbPathAndFileName, $this->syncConfig->getLocalPath());
 	}
 }

@@ -135,6 +135,9 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	 * @return void
 	 */
 	public function updateAction(Tx_DlDropboxsync_Domain_Model_SyncConfiguration $sync) {
+
+
+
 		$this->syncConfigurationRepository->update($sync);
 		$this->flashMessageContainer->add('Your Sync was updated.');
 		$this->redirect('show');
