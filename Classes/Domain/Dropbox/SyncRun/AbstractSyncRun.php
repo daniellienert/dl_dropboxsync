@@ -50,6 +50,12 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_AbstractSyncRun {
 
 
 	/**
+	 * @var Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo
+	 */
+	protected $runInfo;
+
+
+	/**
 	 * @var string
 	 */
 	protected $runIdentifier;
@@ -76,6 +82,14 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_AbstractSyncRun {
 	 */
 	public function injectPersistenceManager(Tx_Extbase_Persistence_Manager $persistenceManager) {
 		$this->persistenceManager = $persistenceManager;
+	}
+
+
+	/**
+	 * @param Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo $runInfo
+	 */
+	public function injectRunInfo(Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo $runInfo) {
+		$this->runInfo = $runInfo;
 	}
 
 

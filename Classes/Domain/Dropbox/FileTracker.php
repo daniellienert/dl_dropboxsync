@@ -138,7 +138,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_FileTracker implements t3lib_Singleton {
 		$fileMeta->setRev($remoteFileArray['rev']);
 		$fileMeta->setRemotePath($remoteFileArray['path']);
 		$fileMeta->setSyncConfiguration($syncConfig);
-		$fileMeta->setLastSynced($runIdentifier);
+		$fileMeta->setLastTouchedBySync($runIdentifier);
 
 		$fileMeta->setLocalPath($localFilePath);
 		$fileMeta->setLocalHash($this->getHashOfLocalFile($localFilePath));

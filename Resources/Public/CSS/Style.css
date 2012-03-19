@@ -1,0 +1,23 @@
+.t3-row-header th {
+    padding: 3px;
+}
+
+.syncInfo {
+    height: 150px;
+    overflow: auto;
+}
+
+.syncInfo h1 {
+    text-align: left;
+    color: black;
+    margin: 0 0 2px 0;
+}
+
+.syncInfo h2 {
+    text-align: left;
+    font-size: 12px;
+}
+
+.syncInfoSection {
+    padding: 0 0 20px 20px;
+}

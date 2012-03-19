@@ -205,5 +205,13 @@ class Tx_DlDropboxsync_Domain_Model_SyncConfiguration extends Tx_Extbase_DomainO
 		return $this->lastSyncInfo;
 	}
 
+
+	/**
+	 * @return array
+	 */
+	public function getLastSyncInfoAsArray() {
+		return unserialize($this->lastSyncInfo);
+	}
+
 }
 ?>

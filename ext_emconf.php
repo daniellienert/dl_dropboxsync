@@ -32,6 +32,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'depends' => array(
 			'extbase' => '1.3.0',
 			'fluid' => '1.3.0',
+			'pt_extbase' => '0.1.4',
 		),
 		'conflicts' => array(
 		),

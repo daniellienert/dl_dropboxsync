@@ -1,0 +1,52 @@
+{namespace ptx=Tx_PtExtbase_ViewHelpers}
+
+<div class=syncInfo>
+	<f:if condition="{syncInfo}">
+		<f:then>
+			<h1>Info</h1>
+			<div class="syncInfoSection">
+				<table>
+					<tr><td>Start: </td><td><ptx:format.timestamp format="%d.%m.%Y %H:%M:%S">{syncInfo.startTime}</ptx:format.timestamp></td></tr>
+					<tr><td>Finished:</td><td><ptx:format.timestamp format="%d.%m.%Y %H:%M:%S">{syncInfo.endTime}</ptx:format.timestamp></td></tr>
+					
+				</table>
+			</div>
+
+			<h1>Local files</h1>
+			<div class="syncInfoSection">
+				<f:if condition="{syncInfo.localFiles.add}">
+				<h2>Added / Updated</h2>
+					<table>
+						<th>Remote</th><th>Local</th>
+						<f:for each="{syncInfo.localFiles.added}" as="file">
+							<tr>
+								<td>{file.remote}</td><td>{file.local}</td>
+							</tr>
+						</f:for>
+					</table>
+				</f:if>
+
+				<f:if condition="{syncInfo.localFiles.deleted}">
+					<h2>Deleted</h2>
+					<ul>
+					<f:for each="{syncInfo.localFiles.deleted}" as="file">
+						<li>{file}</li>
+					</f:for>
+					</ul>
+				</f:if>
+
+				<f:if condition="{syncInfo.localFiles.unchanged}">
+					<h2>Unchanged Files</h2>
+					<ul>
+						<f:for each="{syncInfo.localFiles.unchanged}" as="file">
+							<li>{file}</li>
+						</f:for>
+					</ul>
+				</f:if>
+			</div>
+		</f:then>
+		<f:else>
+			<b>This configuration was never run.</b>
+		</f:else>
+	</f:if>
+</div>

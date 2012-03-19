@@ -28,9 +28,11 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 
 
 	/**
-	 * Start the synchronisation
+	 * @return Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo
 	 */
 	public function startSync() {
+
+		$this->runInfo->logStart($this->getRunIdentifier());
 
 		$dbDirList = $this->getDBDirectoryList($this->syncConfig->getRemotePath());
 		if($dbDirList !== FALSE) {
@@ -43,6 +45,8 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 
 					if($this->fileTracker->isRemoteFileChanged($remotePath, $dbDirEntry['rev'])) {
 						$this->downloadDBFileToDirectory($dbDirEntry);
+					} else {
+						$this->runInfo->logLocalFileUnchanged($remotePath);
 					}
 				}
 			}
@@ -50,6 +54,8 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 			$this->removeLocalFileNotInDropbox();
 
 		}
+
+		return $this->runInfo->getRunInfo();
 	}
 
 
@@ -63,6 +69,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 		foreach($filesToRemove as $fileToRemove) { /** @var $fileToRemove Tx_DlDropboxsync_Domain_Model_FileMeta */
 			if(file_exists($fileToRemove->getLocalPath())) {
 				unlink($fileToRemove->getLocalPath());
+				$this->runInfo->logLocalFileDeleted($fileToRemove->getLocalPath());
 			}
 		}
 	}
@@ -83,6 +90,6 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncIn extends Tx_DlDropboxsync_Do
 		file_put_contents($localPathAndFileName, $fileContent);
 
 		$this->fileTracker->updateFileMeta($localPathAndFileName, $dbDirEntry, $this->syncConfig, $this->runIdentifier);
-		//$syncRun->logLocalFileAdded($dbPathAndFileName, $localPathAndFileName);
+		$this->runInfo->logLocalFileAdded($dbPathAndFileName, $localPathAndFileName);
 	}
 }

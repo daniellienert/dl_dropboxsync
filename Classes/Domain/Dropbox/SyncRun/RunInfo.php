@@ -25,6 +25,12 @@
 
 class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo {
 
+
+	/**
+	 * @var string
+	 */
+	protected $runIdentifier;
+
 	/**
 	 * @var int
 	 */
@@ -37,47 +43,38 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo {
 	protected $localFiles;
 
 
-	/**
-	 * @param \Tx_DlDropboxsync_Domain_Model_SyncConfiguration $syncConfiguration
-	 */
-	public function setSyncConfiguration($syncConfiguration) {
-		$this->syncConfiguration = $syncConfiguration;
-	}
 
-
-	/**
-	 * @return \Tx_DlDropboxsync_Domain_Model_SyncConfiguration
-	 */
-	public function getSyncConfiguration() {
-		return $this->syncConfiguration;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getLocalPath() {
-		return $this->syncConfiguration->getLocalPath();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getRemotePath() {
-		return $this->syncConfiguration->getRemotePath();
-	}
-
-
-	public function logStart() {
+	public function logStart($runIdentifier) {
 		$this->runStartDate = time();
+		$this->runIdentifier = $runIdentifier;
 	}
 
 
+	/**
+	 * @param $remoteFile
+	 * @param $localFile
+	 */
 	public function logLocalFileAdded($remoteFile, $localFile) {
-		$this->localFiles['add'][] = array(
+		$this->localFiles['added'][] = array(
 			'remote' => $remoteFile,
 			'local' => $localFile
 		);
+	}
+
+
+	/**
+	 * @param $localFile
+	 */
+	public function logLocalFileDeleted($localFile) {
+		$this->localFiles['deleted'][] = $localFile;
+	}
+
+
+	/**
+	 * @param $localFile
+	 */
+	public function logLocalFileUnchanged($localFile) {
+		$this->localFiles['unchanged'][] = $localFile;
 	}
 
 
@@ -86,10 +83,10 @@ class Tx_DlDropboxsync_Domain_Dropbox_SyncRun_RunInfo {
 	 */
 	public function getRunInfo() {
 		$runInfo = array(
-			'configuration' => $this->syncConfiguration->getIdentifier(),
 			'runIdentifier' => $this->runIdentifier,
 			'startTime' => $this->runStartDate,
 			'endTime' => time(),
+			'localFiles' => $this->localFiles
 		);
 
 		return $runInfo;

@@ -36,7 +36,10 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 	protected $syncConfigurationRepository;
 
 
-
+	/**
+	 * @var Tx_Extbase_Persistence_Manager
+	 */
+	protected $persistenceManager;
 
 
 	/**
@@ -53,7 +56,12 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 	}
 
 
-
+	/**
+	 * @param Tx_Extbase_Persistence_Manager $persistenceManager
+	 */
+	public function injectPersistenceManager(Tx_Extbase_Persistence_Manager $persistenceManager) {
+		$this->persistenceManager = $persistenceManager;
+	}
 
 
 	/**
@@ -88,8 +96,11 @@ class Tx_DlDropboxsync_Domain_Dropbox_DropboxSync {
 				$syncRun = $this->objectManager->get('Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncOut'); /** @var $syncRun Tx_DlDropboxsync_Domain_Dropbox_SyncRun_SyncOut */
 			}
 
-			$syncRun->setSyncConfiguration($syncConfig)->startSync();
+			$runInfo = $syncRun->setSyncConfiguration($syncConfig)->startSync();
+			$syncConfig->setLastSyncInfo(serialize($runInfo));
+
 			$this->syncConfigurationRepository->update($syncConfig);
+			$this->persistenceManager->persistAll();
 		}
 	}
 
