@@ -43,6 +43,9 @@ class Tx_DlDropboxsync_Configuration_Configuration implements t3lib_Singleton {
 	}
 
 
+	/**
+	 * Init the configuration
+	 */
 	protected function init() {
 		$this->setRequiredValue('dropboxConsumerKey', 'No dropbox consumer key set. Please set this value in the extension installation dialog');
 		$this->setRequiredValue('dropboxConsumerSecret', 'No dropbox consumer secret set. Please set this value in the extension installation dialog');
@@ -59,7 +62,7 @@ class Tx_DlDropboxsync_Configuration_Configuration implements t3lib_Singleton {
 	 * @throws Exception
 	 */
 	protected function setRequiredValue($tsKey, $errorMessageIfNotExists, $internalPropertyName = NULL) {
-		if (!array_key_exists($tsKey, $this->settings)
+		if (is_array($this->settings) && !array_key_exists($tsKey, $this->settings)
 			|| (is_array($this->settings[$tsKey]) && empty($this->settings[$tsKey]))
 			|| (!is_array($this->settings[$tsKey]) && (strlen(trim($this->settings[$tsKey])) === 0))) {
 			Throw new Exception($errorMessageIfNotExists);
