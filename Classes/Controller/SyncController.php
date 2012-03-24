@@ -63,19 +63,21 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 	}
 
 
-	/**
-	 * @param Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox
-	 */
-	public function injectDropbox(Tx_DlDropboxsync_Domain_Dropbox_Dropbox $dropbox) {
-		$this->dropbox = $dropbox;
-	}
-
-
-
 	public function initializeAction() {
 		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
+
+		try {
+			$this->dropbox = $this->objectManager->get(Tx_DlDropboxsync_Domain_Dropbox_Dropbox);
+		} catch(Exception $e) {
+			$this->flashMessageContainer->add($e->getMessage(), 'Error', t3lib_FlashMessage::ERROR);
+			$this->forward('dropboxNotConfigured');
+		}
 	}
 
+
+	public function dropboxNotConfiguredAction() {
+
+	}
 
 
 	/**
@@ -92,6 +94,7 @@ class Tx_DlDropboxsync_Controller_SyncController extends Tx_Extbase_MVC_Controll
 
 		$syncs = $this->syncConfigurationRepository->findAll();
 		$this->view->assign('syncs', $syncs);
+
 		$this->view->assign('isAuthenticated', $this->dropbox->isAuthenticated());
 	}
 
