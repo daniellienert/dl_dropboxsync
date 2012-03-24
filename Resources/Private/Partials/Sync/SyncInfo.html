@@ -3,47 +3,68 @@
 <div class=syncInfo>
 	<f:if condition="{syncInfo}">
 		<f:then>
-			<h1>Info</h1>
-			<div class="syncInfoSection">
-				<table>
-					<tr><td>Start: </td><td><ptx:format.timestamp format="%d.%m.%Y %H:%M:%S">{syncInfo.startTime}</ptx:format.timestamp></td></tr>
-					<tr><td>Finished:</td><td><ptx:format.timestamp format="%d.%m.%Y %H:%M:%S">{syncInfo.endTime}</ptx:format.timestamp></td></tr>
-					
-				</table>
-			</div>
-
-			<h1>Local files</h1>
-			<div class="syncInfoSection">
-				<f:if condition="{syncInfo.localFiles.added}">
-				<h2>Added / Updated</h2>
-					<table>
-						<th>Remote</th><th>Local</th>
-						<f:for each="{syncInfo.localFiles.added}" as="file">
+			<table width="100%">
+				<tr>
+					<td>
+						<h2>Info</h2>
+					</td>
+					<td align="left">
+						<table width="100%">
 							<tr>
-								<td>{file.remote}</td><td>{file.local}</td>
+								<td>Start: </td><td><ptx:format.timestamp format="%d.%m.%Y %H:%M:%S">{syncInfo.startTime}</ptx:format.timestamp></td>
+								<td>Finished:</td><td><ptx:format.timestamp format="%d.%m.%Y %H:%M:%S">{syncInfo.endTime}</ptx:format.timestamp></td>
 							</tr>
-						</f:for>
-					</table>
+						</table>
+					</td>
+				</tr>
+				
+				
+				<f:if condition="{syncInfo.localFiles.added}">
+					<tr>
+						<td width="120px"><h2>Added / Updated</h2></td>
+						<td>
+							<table width="100%">
+								<th>Remote</th><th>Local</th>
+								<f:for each="{syncInfo.localFiles.added}" as="file">
+									<tr>
+										<td>{file.remote}</td><td>{file.local}</td>
+									</tr>
+								</f:for>
+							</table>
+						</td>
+					</tr>
 				</f:if>
-
+				
+				
 				<f:if condition="{syncInfo.localFiles.deleted}">
-					<h2>Deleted</h2>
-					<ul>
-					<f:for each="{syncInfo.localFiles.deleted}" as="file">
-						<li>{file}</li>
-					</f:for>
-					</ul>
+					<tr>
+						<td><h2>Deleted</h2></td>
+						<td>
+							<ul>
+							<f:for each="{syncInfo.localFiles.deleted}" as="file">
+								<li>{file}</li>
+							</f:for>
+							</ul>
+						</td>
+					</tr>
 				</f:if>
 
+				
 				<f:if condition="{syncInfo.localFiles.unchanged}">
-					<h2>Unchanged Files</h2>
-					<ul>
-						<f:for each="{syncInfo.localFiles.unchanged}" as="file">
-							<li>{file}</li>
-						</f:for>
-					</ul>
+					<tr>
+						<td><h2>Unchanged Files</h2></td>
+						<td>
+							<ul>
+								<f:for each="{syncInfo.localFiles.unchanged}" as="file">
+									<li>{file}</li>
+								</f:for>
+							</ul>
+						</td>
+					</tr>
 				</f:if>
-			</div>
+
+			</table>
+
 		</f:then>
 		<f:else>
 			<b>This configuration was never run.</b>

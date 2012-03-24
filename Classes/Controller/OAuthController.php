@@ -41,7 +41,7 @@ class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Control
 
 
 	/**
-	 * @var Dropbox_API
+	 * @var Tx_DlDropboxsync_Domain_Dropbox_Dropbox
 	 */
 	protected $dropbox;
 
@@ -63,8 +63,7 @@ class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Control
 		$this->sessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter::getInstance();
 		$this->registry = t3lib_div::makeInstance('t3lib_Registry');
 
-		$this->oauth = new Dropbox_OAuth_PHP('xyr5aaaeko7l78v', 'gwdrjhgythr1pfx');
-		$this->dropbox = new Dropbox_API($this->oauth);
+		$this->dropbox = $this->objectManager->get('Tx_DlDropboxsync_Domain_Dropbox_Dropbox');
 	}
 
 
@@ -73,7 +72,7 @@ class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Control
 	 */
 	public function connectRequestAction() {
 
-		$tokens = $this->oauth->getRequestToken();
+		$tokens = $this->dropbox->getOAuth()->getRequestToken();
 
 		$this->sessionStorageAdapter->store('dropboxTokens', $tokens);
 		$this->sessionStorageAdapter->store('dropBoxConnectInProgress', true);
@@ -83,7 +82,7 @@ class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Control
 					->setCreateAbsoluteUri(TRUE)
 					->uriFor('connectResponse', NULL, 'OAuth');
 
-		$authorizeURL = $this->oauth->getAuthorizeUrl(urldecode($callBackURL));
+		$authorizeURL = $this->dropbox->getOAuth()->getAuthorizeUrl(urldecode($callBackURL));
 
 		$this->redirectToUri($authorizeURL);
 	}
@@ -95,8 +94,8 @@ class Tx_DlDropboxsync_Controller_OAuthController extends Tx_Extbase_MVC_Control
 	 */
 	public function connectResponseAction() {
 		$oAuthTokens = $this->sessionStorageAdapter->read('dropboxTokens');
-		$this->oauth->setToken($oAuthTokens);
-		$oAuthTokens = $this->oauth->getAccessToken();
+		$this->dropbox->getOAuth()->setToken($oAuthTokens);
+		$oAuthTokens = $this->dropbox->getOAuth()->getAccessToken();
 
 		if(is_array($oAuthTokens)) {
 			$this->registry->set('tx_dlDropbox', 'oauth_tokens', $oAuthTokens);

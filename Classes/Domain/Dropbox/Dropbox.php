@@ -88,6 +88,7 @@ class Tx_DlDropboxsync_Domain_Dropbox_Dropbox implements t3lib_Singleton {
 	 */
 	protected  function initOAuth() {
 		$this->oAuth = new Dropbox_OAuth_PHP(
+		//$this->oAuth = new Dropbox_OAuth_PEAR (
 			$this->configuration->getDropboxConsumerKey(),
 			$this->configuration->getDropboxConsumerSecret()
 		);
