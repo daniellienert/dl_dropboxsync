@@ -27,7 +27,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.local_path" /></th>
 			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.remote_path" /></th>
 			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type" /></th>
-			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.last_sync" /></th>
 			<th><f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.last_sync_info" /></th>
 			<th> </th>
 		</tr>
@@ -39,7 +38,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 				<td> {sync.localPath}</td>
 				<td> {sync.remotePath}</td>
 				<td> <f:translate key="tx_dldropboxsync_domain_model_syncconfiguration.type.{sync.syncType}" /> </td>
-				<td> {sync.lastSync -> f:format.date()}</td>
 				<td><f:render partial="Sync/SyncInfo" arguments="{syncInfo:sync.lastSyncInfoAsArray}" /></td>
 				<td>
 					<ptx:be.buttons.Icon uri="{f:uri.action(action:'edit', arguments:{sync : sync})}" icon='actions-document-open' title="Edit"/>
